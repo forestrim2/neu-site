@@ -171,7 +171,7 @@ return (
 
     </main>
   </>
-);
+); }
 
 function Admin() {
   const [session, setSession] = useState(null);
@@ -376,7 +376,7 @@ function Dashboard() {
             <img src={item.cover_image || ''} alt="" />
             <div>
               <h3>{item.name}</h3>
-              <p>{item.price}</p>
+              <p>{moneyitem.price}</p>
               <span>{item.is_public ? <><Eye size={14} /> 공개</> : <><EyeOff size={14} /> 비공개</>}</span>
             </div>
             <div className="actions">
@@ -392,4 +392,3 @@ function Dashboard() {
 }
 
 createRoot(document.getElementById('root')).render(<App />);
-}
