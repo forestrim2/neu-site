@@ -21,9 +21,10 @@ h1{font-size:clamp(26px,3.5vw,44px);font-weight:400;line-height:1.2;letter-spaci
 .card-body h2{font-size:12px;font-weight:400;margin:0 0 6px;text-align:center;letter-spacing:-.03em;}
 .card-body p{margin:0;color:var(--muted);text-align:center;font-size:12px;letter-spacing:-.02em;}
 .detail-container{max-width:920px;margin:0 auto;padding:70px 20px 120px;}
-.product-head{text-align:center;margin-bottom:54px;}
-.product-head h1{font-size:clamp(32px,5vw,58px);}
-.price{font-size:18px;margin:0 0 20px;}
+.product-head {  text-align:center;  margin-bottom:36px;}
+.product-head h1 {  font-size:clamp(24px,3vw,36px);}
+.detail-cover {  width:100%;  max-width:520px;  display:block;  margin:32px auto 0;  background:var(--soft);}
+.price {  font-size:18px;  margin:0 0 20px;}
 .desc{white-space:pre-wrap;max-width:640px;margin:0 auto 28px;}
 .dm-button,.primary,.ghost,.danger,.upload-box{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--ink);padding:12px 18px;background:var(--ink);color:#fff;cursor:pointer;}
 .image-stack{display:flex;flex-direction:column;gap:20px;}
