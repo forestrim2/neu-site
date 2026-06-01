@@ -316,7 +316,9 @@ function Dashboard() {
 
         <div className="upload-row">
           <label className="upload-box"><Upload size={18} /> 대표이미지 선택<input hidden type="file" accept="image/*" onChange={onCoverChange} /></label>
-          {form.cover_image ? <img className="preview" src={form.cover_image} alt="대표이미지 미리보기" /> : null}
+{form.cover_image ? (  <div className="cover-preview">    <img className="preview" src={form.cover_image} alt="대표이미지 미리보기" />
+    <button      type="button"      className="ghost"      onClick={() => setForm((prev) => ({ ...prev, cover_image: '' }))}    >
+      대표이미지 삭제    </button>  </div>) : null}
         </div>
 
         <div className="upload-row column">
