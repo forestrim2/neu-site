@@ -1,4 +1,4 @@
-:root { --bg:#f8f6f1; --paper:#fffdfa; --ink:#191817; --muted:#77716a; --line:#e4ded4; --soft:#eee8dd; }
+:root {  --bg:#ffffff;  --paper:#ffffff;  --ink:#191817;  --muted:#7a7a7a;  --line:#ececec;  --soft:#f7f7f7;}
 * { box-sizing: border-box; }
 body { margin:0; background:var(--bg); color:var(--ink); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; letter-spacing:.01em; }
 a { color:inherit; text-decoration:none; }
