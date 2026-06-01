@@ -4,7 +4,7 @@ body { margin:0; background:var(--bg); color:var(--ink); font-family: Inter, ui-
 a { color:inherit; text-decoration:none; }
 button, input, textarea { font:inherit; }
 .site-header { height:72px; display:flex; align-items:center; justify-content:space-between; padding:0 42px; border-bottom:1px solid var(--line); background:#ffffff; position:sticky; top:0; backdrop-filter:blur(12px); z-index:5; }
-.brand { font-size:20px; letter-spacing:.22em; }
+.brand { font-size:36px; letter-spacing:.18em; font-weight:300;}
 nav { display:flex; gap:24px; font-size:13px; color:var(--muted); }
 .container { max-width:1120px; margin:0 auto; padding:72px 24px 100px; }
 .hero { max-width:720px; margin-bottom:64px; }
@@ -17,9 +17,9 @@ h1 {  font-size: clamp(26px, 3.5vw, 44px);  font-weight: 400;  line-height: 1.2;
 .card:hover { transform:translateY(-3px); }
 .thumb { aspect-ratio:1/1; background:var(--soft); display:flex; align-items:center; justify-content:center; color:var(--muted); overflow:hidden; }
 .thumb img { width:100%; height:100%; object-fit:cover; }
-.card-body {  background:#DFE9E6;}
-.card-body h2 { font-size:17px; font-weight:400; margin:0 0 8px; }
-.card-body p { margin:0; color:var(--muted); }
+.card-body {  background:#DFE9E6; text-align:center;  padding:18px;}
+.card-body h2 {  font-size:15px;  font-weight:400;  margin:0 0 6px;  text-align:center;}
+.card-body p { margin:0; color:var(--muted);  text-align:center;  font-size:13px;}
 .detail-container { max-width:920px; margin:0 auto; padding:70px 20px 120px; }
 .product-head { text-align:center; margin-bottom:54px; }
 .product-head h1 { font-size:clamp(32px, 5vw, 58px); }
