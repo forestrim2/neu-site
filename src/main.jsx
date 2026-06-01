@@ -392,3 +392,4 @@ function Dashboard() {
 }
 
 createRoot(document.getElementById('root')).render(<App />);
+}
