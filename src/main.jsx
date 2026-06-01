@@ -122,26 +122,56 @@ function ProductDetail() {
   if (!product) return <><Header /><main className="container"><p className="muted">상품을 찾을 수 없습니다.</p></main></>;
 
   const images = [product.cover_image, ...(product.detail_images || [])].filter(Boolean);
-  return (
-    <>
-      <Header />
-      <main className="detail-container">
-        <section className="product-head">
-          <p className="eyebrow">NEU detail</p>
-          <h1>{product.name}</h1>
-          {product.price ? <p className="price">{product.price}</p> : null}
-          {product.description ? <p className="desc">{product.description}</p> : null}
-          <a className="dm-button" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
-            주문 문의(DM)
-          </a>
-        </section>
-        <section className="image-stack">
-          {images.map((src, index) => <img key={`${src}-${index}`} src={src} alt={`${product.name} 상세 이미지 ${index + 1}`} />)}
-        </section>
-      </main>
-    </>
-  );
-}
+return (
+  <>
+    <Header />
+
+    <main className="detail-container">
+
+      <section className="image-stack">
+        {(product.detail_images || []).map((src, index) => (
+          <img
+            key={`${src}-${index}`}
+            src={src}
+            alt={`${product.name} 상세 이미지 ${index + 1}`}
+          />
+        ))}
+      </section>
+
+      <section className="product-head">
+        <p className="eyebrow">NEU detail</p>
+
+        <h1>{product.name}</h1>
+
+        {product.price ? (
+          <p className="price">{money(product.price)}</p>
+        ) : null}
+
+        {product.description ? (
+          <p className="desc">{product.description}</p>
+        ) : null}
+
+        <a
+          className="dm-button"
+          href={INSTAGRAM_URL}
+          target="_blank"
+          rel="noreferrer"
+        >
+          주문 문의(DM)
+        </a>
+
+        {product.cover_image ? (
+          <img
+            className="detail-cover"
+            src={product.cover_image}
+            alt={`${product.name} 대표 이미지`}
+          />
+        ) : null}
+      </section>
+
+    </main>
+  </>
+);
 
 function Admin() {
   const [session, setSession] = useState(null);
