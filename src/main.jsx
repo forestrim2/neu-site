@@ -67,7 +67,7 @@ function Home() {
       <main className="container">
         <section className="hero">
           <p className="eyebrow">floral & object</p>
-          <h1>조용한 형태와 시선을 담습니다.</h1>
+          <h1>새로운 형태와 분위기를 제안합니다.</h1>
           <p>상세 이미지를 확인하신 뒤 주문은 Instagram DM으로 문의해주세요.</p>
         </section>
 
@@ -124,7 +124,7 @@ function ProductDetail() {
           {product.price ? <p className="price">{product.price}</p> : null}
           {product.description ? <p className="desc">{product.description}</p> : null}
           <a className="dm-button" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
-            DM으로 주문 문의
+            주문 문의(DM)
           </a>
         </section>
         <section className="image-stack">
