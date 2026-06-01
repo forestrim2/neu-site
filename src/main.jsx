@@ -139,7 +139,7 @@ return (
       </section>
 
       <section className="product-head">
-        <p className="eyebrow">NEU detail</p>
+        <p className="eyebrow"> @by_NEU</p>
 
         <h1>{product.name}</h1>
 
