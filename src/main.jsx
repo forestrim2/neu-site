@@ -11,7 +11,15 @@ const supabase = createClient(SUPABASE_URL || '', SUPABASE_ANON_KEY || '');
 
 function money(value) {
   if (!value) return '';
-  return value;
+  const onlyNumber = String(value).replace(/[^0-9]/g, '');
+  if (!onlyNumber) return value;
+  return Number(onlyNumber).toLocaleString('ko-KR') + '원';
+}
+
+function formatPriceInput(value) {
+  const onlyNumber = String(value).replace(/[^0-9]/g, '');
+  if (!onlyNumber) return '';
+  return Number(onlyNumber).toLocaleString('ko-KR');
 }
 
 function App() {
@@ -296,7 +304,14 @@ function Dashboard() {
           {editingId ? <button type="button" className="ghost" onClick={reset}>새 상품 등록</button> : null}
         </div>
         <label>상품명<input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required /></label>
-        <label>가격<input value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} placeholder="예: 19,000원" /></label>
+       <label>가격
+  <input
+    value={formatPriceInput(form.price)}
+    onChange={(e) => setForm({ ...form, price: e.target.value.replace(/[^0-9]/g, '') })}
+    placeholder="예: 45,000"
+    inputMode="numeric"
+  />
+</label>
         <label>상품설명<textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} rows="5" /></label>
 
         <div className="upload-row">
