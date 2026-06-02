@@ -62,7 +62,7 @@ function Home(){
       .from('products')
       .select('*')
       .eq('is_public',true)
-      .order('created_at',{ascending:false})
+.order('display_order',{ascending:true})
       .then(({data})=>{
         setProducts(data||[]);
         setLoading(false);
@@ -208,9 +208,8 @@ function Login(){
   );
 }
 
-const emptyForm={name:'',price:'',cover_image:'',detail_images:[],description:'',is_public:false};
-
-function Dashboard(){
+const emptyForm={  name:'',  price:'',  display_order:999,  cover_image:'',  detail_images:[],  description:'',  is_public:false
+                };function Dashboard(){
   const[products,setProducts]=useState([]);
   const[form,setForm]=useState(emptyForm);
   const[editingId,setEditingId]=useState(null);
@@ -270,9 +269,10 @@ function Dashboard(){
     e.preventDefault();
     setSaving(true);
     setMessage('');
-    const payload={
-      name:form.name,
-      price:form.price,
+  const payload={
+  name:form.name,
+  price:form.price,
+  display_order:form.display_order,
       cover_image:form.cover_image,
       detail_images:form.detail_images||[],
       description:form.description,
@@ -292,9 +292,10 @@ function Dashboard(){
 
   function edit(item){
     setEditingId(item.id);
-    setForm({
-      name:item.name||'',
-      price:item.price||'',
+ setForm({
+  name:item.name||'',
+  price:item.price||'',
+  display_order:item.display_order||999,
       cover_image:item.cover_image||'',
       detail_images:item.detail_images||[],
       description:item.description||'',
@@ -328,6 +329,14 @@ function Dashboard(){
 
         <label>상품명<input value={form.name} onChange={e=>setForm({...form,name:e.target.value})} required/></label>
         <label>가격<input value={formatPriceInput(form.price)} onChange={e=>setForm({...form,price:e.target.value.replace(/[^0-9]/g,'')})} placeholder="예:45,000" inputMode="numeric"/></label>
+       <label>노출순서
+  <input
+    type="number"
+    value={form.display_order}
+    onChange={(e)=>setForm({...form,display_order:Number(e.target.value)})}
+    placeholder="1"
+  />
+</label>
         <label>상품설명<textarea value={form.description} onChange={e=>setForm({...form,description:e.target.value})} rows="5"/></label>
 
         <div className="upload-row">
