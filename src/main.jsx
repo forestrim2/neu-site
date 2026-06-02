@@ -1,7 +1,7 @@
 import React,{useEffect,useMemo,useState}from'react';
 import{createRoot}from'react-dom/client';
 import{createClient}from'@supabase/supabase-js';
-import{Eye,EyeOff,LogOut,Plus,Trash2,Upload}from'lucide-react'; 
+import{Eye,EyeOff,LogOut,Plus,Trash2,Upload,Link as LinkIcon}from'lucide-react';
 import'./style.css';
 
 const SUPABASE_URL=import.meta.env.VITE_SUPABASE_URL;
@@ -62,7 +62,8 @@ function Home(){
       .from('products')
       .select('*')
       .eq('is_public',true)
-.order('display_order',{ascending:true})
+      .order('display_order',{ascending:true})
+      .order('created_at',{ascending:false})
       .then(({data})=>{
         setProducts(data||[]);
         setLoading(false);
@@ -110,10 +111,12 @@ function ProductDetail(){
       setLoading(false);
       return;
     }
+
     supabase
       .from('products')
       .select('*')
       .eq('id',id)
+      .or('is_public.eq.true,link_public.eq.true')
       .single()
       .then(({data})=>{
         setProduct(data||null);
@@ -125,7 +128,9 @@ function ProductDetail(){
     return(
       <>
         <Header/>
-        <main className="container"><p className="muted">불러오는 중입니다.</p></main>
+        <main className="container">
+          <p className="muted">불러오는 중입니다.</p>
+        </main>
       </>
     );
   }
@@ -134,7 +139,9 @@ function ProductDetail(){
     return(
       <>
         <Header/>
-        <main className="container"><p className="muted">상품을 찾을 수 없습니다.</p></main>
+        <main className="container">
+          <p className="muted">상품을 찾을 수 없습니다.</p>
+        </main>
       </>
     );
   }
@@ -154,7 +161,11 @@ function ProductDetail(){
           <h1>{product.name}</h1>
           {product.price?<p className="price">{money(product.price)}</p>:null}
           {product.description?<p className="desc">{product.description}</p>:null}
-          <a className="dm-button" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">주문 문의(DM)</a>
+
+          <a className="dm-button" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
+            주문 문의(DM)
+          </a>
+
           {product.cover_image?(
             <img className="detail-cover" src={product.cover_image} alt={`${product.name} 대표 이미지`}/>
           ):null}
@@ -179,7 +190,7 @@ function Admin(){
 
   if(loading)return<main className="admin-wrap"><p>확인 중입니다.</p></main>;
   if(!session)return<Login/>;
-  return<Dashboard user={session.user}/>;
+  return<Dashboard/>;
 }
 
 function Login(){
@@ -208,17 +219,33 @@ function Login(){
   );
 }
 
-const emptyForm={  name:'',  price:'',  display_order:999,  cover_image:'',  detail_images:[],  description:'',  is_public:false
-                };function Dashboard(){
+const emptyForm={
+  name:'',
+  price:'',
+  display_order:999,
+  cover_image:'',
+  detail_images:[],
+  description:'',
+  is_public:false,
+  link_public:false
+};
+
+function Dashboard(){
   const[products,setProducts]=useState([]);
   const[form,setForm]=useState(emptyForm);
   const[editingId,setEditingId]=useState(null);
   const[saving,setSaving]=useState(false);
   const[message,setMessage]=useState('');
+
   const sortedProducts=useMemo(()=>products,[products]);
 
   async function load(){
-    const{data}=await supabase.from('products').select('*').order('created_at',{ascending:false});
+    const{data}=await supabase
+      .from('products')
+      .select('*')
+      .order('display_order',{ascending:true})
+      .order('created_at',{ascending:false});
+
     setProducts(data||[]);
   }
 
@@ -269,37 +296,44 @@ const emptyForm={  name:'',  price:'',  display_order:999,  cover_image:'',  det
     e.preventDefault();
     setSaving(true);
     setMessage('');
-  const payload={
-  name:form.name,
-  price:form.price,
-  display_order:form.display_order,
+
+    const payload={
+      name:form.name,
+      price:form.price,
+      display_order:form.display_order,
       cover_image:form.cover_image,
       detail_images:form.detail_images||[],
       description:form.description,
       is_public:form.is_public,
+      link_public:form.link_public
     };
+
     const result=editingId
       ?await supabase.from('products').update(payload).eq('id',editingId)
       :await supabase.from('products').insert(payload);
+
     setSaving(false);
+
     if(result.error){
       setMessage('저장에 실패했습니다. 입력값과 Supabase 정책을 확인해주세요.');
       return;
     }
+
     reset();
     await load();
   }
 
   function edit(item){
     setEditingId(item.id);
- setForm({
-  name:item.name||'',
-  price:item.price||'',
-  display_order:item.display_order||999,
+    setForm({
+      name:item.name||'',
+      price:item.price||'',
+      display_order:item.display_order||999,
       cover_image:item.cover_image||'',
       detail_images:item.detail_images||[],
       description:item.description||'',
       is_public:!!item.is_public,
+      link_public:!!item.link_public
     });
     window.scrollTo({top:0,behavior:'smooth'});
   }
@@ -317,7 +351,10 @@ const emptyForm={  name:'',  price:'',  display_order:999,  cover_image:'',  det
   return(
     <main className="admin-wrap">
       <header className="admin-top">
-        <div><p className="eyebrow">NEU admin</p><h1>상품 관리</h1></div>
+        <div>
+          <p className="eyebrow">NEU admin</p>
+          <h1>상품 관리</h1>
+        </div>
         <button className="ghost" onClick={signOut}><LogOut size={16}/> 로그아웃</button>
       </header>
 
@@ -327,57 +364,111 @@ const emptyForm={  name:'',  price:'',  display_order:999,  cover_image:'',  det
           {editingId?<button type="button" className="ghost" onClick={reset}>새 상품 등록</button>:null}
         </div>
 
-        <label>상품명<input value={form.name} onChange={e=>setForm({...form,name:e.target.value})} required/></label>
-        <label>가격<input value={formatPriceInput(form.price)} onChange={e=>setForm({...form,price:e.target.value.replace(/[^0-9]/g,'')})} placeholder="예:45,000" inputMode="numeric"/></label>
-       <label>노출순서
-  <input
-    type="number"
-    value={form.display_order}
-    onChange={(e)=>setForm({...form,display_order:Number(e.target.value)})}
-    placeholder="1"
-  />
-</label>
-        <label>상품설명<textarea value={form.description} onChange={e=>setForm({...form,description:e.target.value})} rows="5"/></label>
+        <label>상품명
+          <input value={form.name} onChange={e=>setForm({...form,name:e.target.value})} required/>
+        </label>
+
+        <label>가격
+          <input
+            value={formatPriceInput(form.price)}
+            onChange={e=>setForm({...form,price:e.target.value.replace(/[^0-9]/g,'')})}
+            placeholder="예:45,000"
+            inputMode="numeric"
+          />
+        </label>
+
+        <label>노출순서
+          <input
+            type="number"
+            value={form.display_order}
+            onChange={e=>setForm({...form,display_order:Number(e.target.value)})}
+            placeholder="1"
+          />
+        </label>
+
+        <label>상품설명
+          <textarea value={form.description} onChange={e=>setForm({...form,description:e.target.value})} rows="5"/>
+        </label>
 
         <div className="upload-row">
-          <label className="upload-box"><Upload size={18}/> 대표이미지 선택<input hidden type="file" accept="image/*" onChange={onCoverChange}/></label>
+          <label className="upload-box"><Upload size={18}/> 대표이미지 선택
+            <input hidden type="file" accept="image/*" onChange={onCoverChange}/>
+          </label>
+
           {form.cover_image?(
             <div className="cover-preview">
               <img className="preview" src={form.cover_image} alt="대표이미지 미리보기"/>
-              <button type="button" className="ghost" onClick={()=>setForm(prev=>({...prev,cover_image:''}))}>대표이미지 삭제</button>
+              <button type="button" className="ghost" onClick={()=>setForm(prev=>({...prev,cover_image:''}))}>
+                대표이미지 삭제
+              </button>
             </div>
           ):null}
         </div>
 
         <div className="upload-row column">
-          <label className="upload-box"><Upload size={18}/> 상세이미지 여러장 선택<input hidden type="file" accept="image/*" multiple onChange={onDetailChange}/></label>
+          <label className="upload-box"><Upload size={18}/> 상세이미지 여러장 선택
+            <input hidden type="file" accept="image/*" multiple onChange={onDetailChange}/>
+          </label>
+
           <div className="detail-previews">
             {(form.detail_images||[]).map((src,index)=>(
               <div className="mini" key={`${src}-${index}`}>
                 <img src={src} alt={`상세이미지 ${index+1}`}/>
-                <button type="button" onClick={()=>setForm(prev=>({...prev,detail_images:prev.detail_images.filter((_,i)=>i!==index)}))}>삭제</button>
+                <button
+                  type="button"
+                  onClick={()=>setForm(prev=>({...prev,detail_images:prev.detail_images.filter((_,i)=>i!==index)}))}
+                >
+                  삭제
+                </button>
               </div>
             ))}
           </div>
         </div>
 
-        <label className="check"><input type="checkbox" checked={form.is_public} onChange={e=>setForm({...form,is_public:e.target.checked})}/> 공개 상태로 등록</label>
-        <button className="primary" disabled={saving}><Plus size={16}/> {saving?'저장 중':editingId?'수정 저장':'상품 등록'}</button>
+        <label className="check">
+          <input
+            type="checkbox"
+            checked={form.is_public}
+            onChange={e=>setForm({...form,is_public:e.target.checked})}
+          />
+          메인에 공개
+        </label>
+
+        <label className="check">
+          <input
+            type="checkbox"
+            checked={form.link_public}
+            onChange={e=>setForm({...form,link_public:e.target.checked})}
+          />
+          링크로 접근 허용
+        </label>
+
+        <button className="primary" disabled={saving}>
+          <Plus size={16}/> {saving?'저장 중':editingId?'수정 저장':'상품 등록'}
+        </button>
+
         {message?<p className="error">{message}</p>:null}
       </form>
 
       <section className="panel list">
         <h2>등록된 상품</h2>
+
         {sortedProducts.map(item=>(
           <article className="admin-item" key={item.id}>
             <img src={item.cover_image||''} alt=""/>
+
             <div>
               <h3>{item.name}</h3>
               <p>{money(item.price)}</p>
-              <span>{item.is_public?<><Eye size={14}/> 공개</>:<><EyeOff size={14}/> 비공개</>}</span>
+              <span>
+                {item.is_public?<><Eye size={14}/> 메인 공개</>:item.link_public?<><LinkIcon size={14}/> 링크 공개</>:<><EyeOff size={14}/> 비공개</>}
+              </span>
             </div>
+
             <div className="actions">
-              <a className="ghost" href={`/product?id=${item.id}`} target="_blank">보기</a>
+              {(item.is_public||item.link_public)?(
+                <a className="ghost" href={`/product?id=${item.id}`} target="_blank">보기</a>
+              ):null}
               <button className="ghost" onClick={()=>edit(item)}>수정</button>
               <button className="danger" onClick={()=>remove(item.id)}><Trash2 size={15}/></button>
             </div>
