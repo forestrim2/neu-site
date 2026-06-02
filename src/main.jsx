@@ -377,7 +377,7 @@ function Dashboard() {
             <img src={item.cover_image || ''} alt="" />
             <div>
               <h3>{item.name}</h3>
-              <p>{moneyitem.price}</p>
+             <p>{money(item.price)}</p>
               <span>{item.is_public ? <><Eye size={14} /> 공개</> : <><EyeOff size={14} /> 비공개</>}</span>
             </div>
             <div className="actions">
