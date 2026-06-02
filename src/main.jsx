@@ -170,8 +170,9 @@ return (
       </section>
 
     </main>
-  </>
-); }
+</>
+);
+}
 
 function Admin() {
   const [session, setSession] = useState(null);
@@ -390,5 +391,4 @@ function Dashboard() {
     </main>
   );
 }
-
 createRoot(document.getElementById('root')).render(<App />);
