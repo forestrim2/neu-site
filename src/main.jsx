@@ -1,7 +1,7 @@
 import React,{useEffect,useMemo,useState}from'react';
 import{createRoot}from'react-dom/client';
 import{createClient}from'@supabase/supabase-js';
-import{Eye,EyeOff,LogOut,Plus,Trash2,Upload}from'lucide-react';
+import{Eye,EyeOff,LogOut,Plus,Trash2,Upload}from'lucide-react'; 
 import'./style.css';
 
 const SUPABASE_URL=import.meta.env.VITE_SUPABASE_URL;
