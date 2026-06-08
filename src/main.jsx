@@ -25,7 +25,7 @@ function formatPriceInput(value){
 function App(){
   const path=window.location.pathname;
   if(!SUPABASE_URL||!SUPABASE_ANON_KEY)return<SetupNotice/>;
-  if(path==='/admin')return<admin/>;
+  if(path==='/admin')return<Admin/>;
   if(path==='/product')return<ProductDetail/>;
   return<Home/>;
 }
@@ -181,7 +181,7 @@ function ProductDetail(){
   );
 }
 
-function admin(){
+function Admin(){
   const[session,setSession]=useState(null);
   const[loading,setLoading]=useState(true);
 
