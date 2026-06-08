@@ -74,4 +74,5 @@ textarea{resize:vertical;}
                         .card-body p{font-size:11px;}.admin-top,
                         .form-title,
                         .upload-row{align-items:stretch;flex-direction:column;}
-                        .detail-previews{grid-template-columns:repeat(2,1fr);}}
+                        .detail-previews{grid-template-columns:repeat(2,1fr);}
+                        admin-floating{right:14px;bottom:14px;font-size:11px;opacity:.45;}}
