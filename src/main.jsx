@@ -43,13 +43,16 @@ function SetupNotice(){
 
 function Header(){
   return(
-    <header className="site-header">
-      <a href="/" className="brand">NEU</a>
-      <nav>
-        <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer">DM 문의</a>
-        <a href="/admin">Admin</a>
-      </nav>
-    </header>
+    <>
+      <header className="site-header">
+        <a href="/" className="brand">NEU</a>
+        <nav>
+          <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer">DM 문의</a>
+        </nav>
+      </header>
+
+      <a href="/admin" className="admin-floating">Admin</a>
+    </>
   );
 }
 
