@@ -25,7 +25,7 @@ function formatPriceInput(value){
 function App(){
   const path=window.location.pathname;
   if(!SUPABASE_URL||!SUPABASE_ANON_KEY)return<SetupNotice/>;
-  if(path==='/admin')return<Admin/>;
+  if(path==='/admin')return<admin/>;
   if(path==='/product')return<ProductDetail/>;
   return<Home/>;
 }
@@ -97,7 +97,7 @@ function Home(){
         </section>
       </main>
       <footer className="site-footer">
-        <a href="/admin">Admin</a>
+        <a href="/admin">admin</a>
       </footer>
     </>
   );
@@ -177,7 +177,7 @@ function ProductDetail(){
   );
 }
 
-function Admin(){
+function admin(){
   const[session,setSession]=useState(null);
   const[loading,setLoading]=useState(true);
 
