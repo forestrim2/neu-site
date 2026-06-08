@@ -33,7 +33,7 @@ function App(){
 function SetupNotice(){
   return(
     <main className="setup">
-      <h1>NEU</h1>
+      <h1>DINE</h1>
       <p>Supabase 환경변수가 아직 연결되지 않았습니다.</p>
       <code>VITE_SUPABASE_URL</code>
       <code>VITE_SUPABASE_ANON_KEY</code>
@@ -132,10 +132,14 @@ function ProductDetail(){
         <Header/>
         <main className="container">
           <p className="muted">불러오는 중입니다.</p>
-        </main>
-      </>
-    );
-  }
+          </main>
+
+      <footer className="site-footer">
+        <a href="/admin">admin</a>
+      </footer>
+    </>
+  );
+}
 
   if(!product){
     return(
