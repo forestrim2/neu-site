@@ -43,16 +43,12 @@ function SetupNotice(){
 
 function Header(){
   return(
-    <>
-      <header className="site-header">
-        <a href="/" className="brand">NEU</a>
-        <nav>
-          <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer">DM 문의</a>
-        </nav>
-      </header>
-
-      <a href="/Admin" className="admin-floating">Admin</a>
-    </>
+    <header className="site-header">
+      <a href="/" className="brand">NEU</a>
+      <nav>
+        <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer">DM 문의</a>
+      </nav>
+    </header>
   );
 }
 
@@ -100,6 +96,9 @@ function Home(){
           ))}
         </section>
       </main>
+      <footer className="site-footer">
+        <a href="/admin">Admin</a>
+      </footer>
     </>
   );
 }
