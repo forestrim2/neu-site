@@ -51,7 +51,7 @@ function Header(){
         </nav>
       </header>
 
-      <a href="/─" className="admin-floating">─</a>
+      <a href="/admin" className="admin-floating">admin</a>
     </>
   );
 }
