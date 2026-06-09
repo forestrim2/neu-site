@@ -245,6 +245,7 @@ const emptyForm={
   description:'',
   order_form_url:'',
   use_order_form:false,
+  order_form_type:'none',
   is_public:false,
   link_public:false
 };
@@ -316,7 +317,7 @@ function Dashboard(){
     setSaving(true);
     setMessage('');
 
- const payload={
+const payload={
   name:form.name,
   price:form.price,
   display_order:form.display_order,
@@ -325,6 +326,7 @@ function Dashboard(){
   description:form.description,
   order_form_url:form.order_form_url,
   use_order_form:form.use_order_form,
+  order_form_type:form.order_form_type,
   is_public:form.is_public,
   link_public:form.link_public
 };
@@ -355,6 +357,7 @@ setForm({
   description:item.description||'',
   order_form_url:item.order_form_url||'',
   use_order_form:!!item.use_order_form,
+  order_form_type:item.order_form_type||'none',
   is_public:!!item.is_public,
   link_public:!!item.link_public
 });
