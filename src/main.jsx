@@ -463,6 +463,16 @@ setForm({
           />
           메인에 공개
         </label>
+        
+        <label className="check">
+  <input
+    type="checkbox"
+    checked={form.use_order_form}
+    onChange={e=>setForm({...form,use_order_form:e.target.checked})}
+  />
+  사이트 주문서 사용
+</label>
+        
 
         <label className="check">
           <input
