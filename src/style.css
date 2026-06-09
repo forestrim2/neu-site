@@ -86,7 +86,7 @@ label select{margin-left:0;}
 .order-form label{font-size:13px;margin-bottom:12px;}
 .order-form input,.order-form textarea,.order-form select{padding:8px 10px;font-size:13px;min-height:36px;}
 .order-form textarea{min-height:86px;}
-
+.order-divider{  border-top:1px solid var(--line);  margin:24px 0; }
 .form-grid{display:grid;gap:12px 14px;margin-bottom:14px;}
 .form-grid.two{grid-template-columns:repeat(2,minmax(0,1fr));}
 .form-grid.three{grid-template-columns:1fr 1fr 1.4fr;}
