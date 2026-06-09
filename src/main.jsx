@@ -867,21 +867,151 @@ setForm({
     ))}
   </div>
 
-  <div className="orders-detail">
-    {selectedOrder ? (
-      <div>
-        <h2>주문서 상세</h2>
-        <p><strong>주문자명</strong><br/>{selectedOrder.customer_name || '-'}</p>
-        <p><strong>연락처</strong><br/>{selectedOrder.number || '-'}</p>
-        <p><strong>신랑명</strong><br/>{selectedOrder.groom_name || '-'}</p>
-        <p><strong>신부명</strong><br/>{selectedOrder.bride_name || '-'}</p>
-        <p><strong>예식일시</strong><br/>{selectedOrder.wedding_date || '-'} {selectedOrder.wedding_time || ''}</p>
-        <p><strong>식장명</strong><br/>{selectedOrder.wedding_place || '-'}</p>
+<div className="orders-detail">
+  {selectedOrder ? (
+    <div className="order-detail-view">
+      <h2>주문서 상세</h2>
+
+      <div className="detail-grid two">
+        <div>
+          <strong>주문자명</strong>
+          <p>{selectedOrder.customer_name || '-'}</p>
+        </div>
+        <div>
+          <strong>연락처</strong>
+          <p>{selectedOrder.number || '-'}</p>
+        </div>
       </div>
-    ) : (
-      <p className="muted">주문서를 선택해주세요.</p>
-    )}
-  </div>
+
+      <div className="order-divider"></div>
+
+      <div className="detail-grid two">
+        <div>
+          <strong>신랑 한글명</strong>
+          <p>{selectedOrder.groom_name || '-'}</p>
+        </div>
+        <div>
+          <strong>신랑 영문명</strong>
+          <p>{selectedOrder.groom_name_en || '-'}</p>
+        </div>
+      </div>
+
+      <div className="detail-grid two">
+        <div>
+          <strong>신부 한글명</strong>
+          <p>{selectedOrder.bride_name || '-'}</p>
+        </div>
+        <div>
+          <strong>신부 영문명</strong>
+          <p>{selectedOrder.bride_name_en || '-'}</p>
+        </div>
+      </div>
+
+      <div className="detail-grid two">
+        <div>
+          <strong>예식 일시</strong>
+          <p>{selectedOrder.wedding_date || '-'}</p>
+        </div>
+        <div>
+          <strong>AM / PM</strong>
+          <p>{selectedOrder.wedding_time || '-'}</p>
+        </div>
+      </div>
+
+      <div className="detail-grid two">
+        <div>
+          <strong>식장명</strong>
+          <p>{selectedOrder.wedding_place || '-'}</p>
+        </div>
+        <div>
+          <strong>식장 연락처</strong>
+          <p>{selectedOrder.wedding_phone || '-'}</p>
+        </div>
+      </div>
+
+      <div className="detail-block">
+        <strong>식장 주소</strong>
+        <p>{selectedOrder.wedding_addre || '-'}</p>
+      </div>
+
+      <div className="detail-block">
+        <strong>{selectedOrder.route_option || '오시는 길 안내'}</strong>
+        <p>{selectedOrder.route_text || '-'}</p>
+      </div>
+
+      <div className="detail-block">
+        <strong>모바일 청첩장 QR 코드 링크</strong>
+        <p>{selectedOrder.mobile_qr_lir || '-'}</p>
+      </div>
+
+      <div className="detail-block">
+        <strong>화환 및 ATM 여부</strong>
+        <p>{selectedOrder.flower_notice || '-'}</p>
+      </div>
+
+      <div className="order-divider"></div>
+
+      <h3>혼주 정보</h3>
+
+      <div className="detail-grid two">
+        <div>
+          <strong>신랑측 부</strong>
+          <p>{selectedOrder.groom_father_deceased ? '故 ' : ''}{selectedOrder.groom_father_name || '-'}</p>
+        </div>
+        <div>
+          <strong>신랑측 모</strong>
+          <p>{selectedOrder.groom_mother_deceased ? '故 ' : ''}{selectedOrder.groom_mother_name || '-'}</p>
+        </div>
+      </div>
+
+      <div className="detail-grid two">
+        <div>
+          <strong>신부측 부</strong>
+          <p>{selectedOrder.bride_father_deceased ? '故 ' : ''}{selectedOrder.bride_father_name || '-'}</p>
+        </div>
+        <div>
+          <strong>신부측 모</strong>
+          <p>{selectedOrder.bride_mother_deceased ? '故 ' : ''}{selectedOrder.bride_mother_name || '-'}</p>
+        </div>
+      </div>
+
+      <div className="order-divider"></div>
+
+      <h3>계좌 정보</h3>
+
+      <div className="detail-grid three">
+        <div>
+          <strong>은행</strong>
+          <p>{selectedOrder.account_1_bank || '-'}</p>
+        </div>
+        <div>
+          <strong>성함</strong>
+          <p>{selectedOrder.account_1_name || '-'}</p>
+        </div>
+        <div>
+          <strong>계좌번호</strong>
+          <p>{selectedOrder.account_1_number || '-'}</p>
+        </div>
+      </div>
+
+      <div className="detail-grid three">
+        <div>
+          <strong>은행</strong>
+          <p>{selectedOrder.account_2_bank || '-'}</p>
+        </div>
+        <div>
+          <strong>성함</strong>
+          <p>{selectedOrder.account_2_name || '-'}</p>
+        </div>
+        <div>
+          <strong>계좌번호</strong>
+          <p>{selectedOrder.account_2_number || '-'}</p>
+        </div>
+      </div>
+    </div>
+  ) : (
+    <p className="muted">주문서를 선택해주세요.</p>
+  )}
 </div>
     
 </section>
