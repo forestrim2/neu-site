@@ -274,7 +274,6 @@ function OrderForm(){
     };
 
     const{error}=await supabase.from('orders').insert(payload);
-
     setSaving(false);
 
     if(error){
@@ -318,140 +317,144 @@ function OrderForm(){
         <form className="panel form" onSubmit={submit}>
           <p className="eyebrow">NEU invitation order</p>
           <h1>청첩장 주문서</h1>
+          
+          <p className="order-guide">
+  ■ 하단의 항목을 빠짐 없이 기재해주세요.
+</p>
 
-          <label>주문자 성함
-            <input value={form.customer_name} onChange={e=>update('customer_name',e.target.value)} required/>
-          </label>
+          <div className="form-grid two">
+            <label>주문자명
+              <input value={form.customer_name} onChange={e=>update('customer_name',e.target.value)} required/>
+            </label>
+            <label>연락처
+              <input value={form.phone} onChange={e=>update('phone',e.target.value)} required/>
+            </label>
+          </div>
 
-          <label>연락처
-            <input value={form.phone} onChange={e=>update('phone',e.target.value)} required/>
-          </label>
+          <div className="form-grid two">
+            <label>신랑 성함 한글
+              <input value={form.groom_name} onChange={e=>update('groom_name',e.target.value)} required/>
+            </label>
+            <label>신랑 성함 영문
+              <input value={form.groom_name_en} onChange={e=>update('groom_name_en',e.target.value)} required/>
+            </label>
+          </div>
 
-          <label>신랑 성함 한글
-            <input value={form.groom_name} onChange={e=>update('groom_name',e.target.value)} required/>
-          </label>
+          <div className="form-grid two">
+            <label>신부 성함 한글
+              <input value={form.bride_name} onChange={e=>update('bride_name',e.target.value)} required/>
+            </label>
+            <label>신부 성함 영문
+              <input value={form.bride_name_en} onChange={e=>update('bride_name_en',e.target.value)} required/>
+            </label>
+          </div>
 
-          <label>신랑 성함 영문
-            <input value={form.groom_name_en} onChange={e=>update('groom_name_en',e.target.value)} required/>
-          </label>
+          <div className="form-grid two">
+            <label>예식 일시
+              <input value={form.wedding_date} onChange={e=>update('wedding_date',e.target.value)} placeholder="예: 2026년 11월 7일 토요일 12시" required/>
+            </label>
+            <label>AM / PM
+              <select value={form.wedding_time_period} onChange={e=>update('wedding_time_period',e.target.value)} required>
+                <option value="AM">AM 오전</option>
+                <option value="PM">PM 오후</option>
+              </select>
+            </label>
+          </div>
 
-          <label>신부 성함 한글
-            <input value={form.bride_name} onChange={e=>update('bride_name',e.target.value)} required/>
-          </label>
-
-          <label>신부 성함 영문
-            <input value={form.bride_name_en} onChange={e=>update('bride_name_en',e.target.value)} required/>
-          </label>
-
-          <label>예식 일시
-            <input value={form.wedding_date} onChange={e=>update('wedding_date',e.target.value)} placeholder="예: 2026년 11월 7일 토요일 12시" required/>
-          </label>
-
-          <label>AM / PM
-            <select value={form.wedding_time_period} onChange={e=>update('wedding_time_period',e.target.value)} required>
-              <option value="AM">AM 오전</option>
-              <option value="PM">PM 오후</option>
-            </select>
-          </label>
-
-          <label>식장명
-            <input value={form.wedding_place} onChange={e=>update('wedding_place',e.target.value)} required/>
-          </label>
+          <div className="form-grid two">
+            <label>식장명
+              <input value={form.wedding_place} onChange={e=>update('wedding_place',e.target.value)} required/>
+            </label>
+            <label>식장 연락처
+              <input value={form.wedding_phone} onChange={e=>update('wedding_phone',e.target.value)} required/>
+            </label>
+          </div>
 
           <label>식장 주소
             <input value={form.wedding_address} onChange={e=>update('wedding_address',e.target.value)} required/>
           </label>
 
-          <label>식장 연락처
-            <input value={form.wedding_phone} onChange={e=>update('wedding_phone',e.target.value)} required/>
-          </label>
-
-          <label>오시는 길 안내 또는 글귀
-            <select value={form.route_option} onChange={e=>update('route_option',e.target.value)} required>
-              <option value="오시는 길 안내">오시는 길 안내</option>
-              <option value="글귀">글귀</option>
-            </select>
-          </label>
+          <div className="form-grid two">
+            <label>오시는 길 안내 또는 글귀
+              <select value={form.route_option} onChange={e=>update('route_option',e.target.value)} required>
+                <option value="오시는 길 안내">오시는 길 안내</option>
+                <option value="글귀">글귀</option>
+              </select>
+            </label>
+            <label>모바일 청첩장 QR 코드 링크
+              <input value={form.mobile_qr_link} onChange={e=>update('mobile_qr_link',e.target.value)} required/>
+            </label>
+          </div>
 
           <label>{form.route_option} 내용
             <textarea value={form.route_text} onChange={e=>update('route_text',e.target.value)} rows="4" required/>
           </label>
 
-          <label>모바일 청첩장 QR 코드 링크
-            <input value={form.mobile_qr_link} onChange={e=>update('mobile_qr_link',e.target.value)} required/>
-          </label>
-
           <h2>신랑측</h2>
-
-          <label>부 성함
-            <input value={form.groom_father_name} onChange={e=>update('groom_father_name',e.target.value)} required/>
-          </label>
-
-          <label className="check">
-            <input type="checkbox" checked={form.groom_father_deceased} onChange={e=>update('groom_father_deceased',e.target.checked)}/>
-            부 고인 표기
-          </label>
-
-          <label>모 성함
-            <input value={form.groom_mother_name} onChange={e=>update('groom_mother_name',e.target.value)} required/>
-          </label>
-
-          <label className="check">
-            <input type="checkbox" checked={form.groom_mother_deceased} onChange={e=>update('groom_mother_deceased',e.target.checked)}/>
-            모 고인 표기
-          </label>
+          <div className="form-grid two">
+            <label>부 성함
+              <input value={form.groom_father_name} onChange={e=>update('groom_father_name',e.target.value)} required/>
+              <span className="inline-check">
+                <input type="checkbox" checked={form.groom_father_deceased} onChange={e=>update('groom_father_deceased',e.target.checked)}/>
+                고인 표기
+              </span>
+            </label>
+            <label>모 성함
+              <input value={form.groom_mother_name} onChange={e=>update('groom_mother_name',e.target.value)} required/>
+              <span className="inline-check">
+                <input type="checkbox" checked={form.groom_mother_deceased} onChange={e=>update('groom_mother_deceased',e.target.checked)}/>
+                고인 표기
+              </span>
+            </label>
+          </div>
 
           <h2>신부측</h2>
-
-          <label>부 성함
-            <input value={form.bride_father_name} onChange={e=>update('bride_father_name',e.target.value)} required/>
-          </label>
-
-          <label className="check">
-            <input type="checkbox" checked={form.bride_father_deceased} onChange={e=>update('bride_father_deceased',e.target.checked)}/>
-            부 고인 표기
-          </label>
-
-          <label>모 성함
-            <input value={form.bride_mother_name} onChange={e=>update('bride_mother_name',e.target.value)} required/>
-          </label>
-
-          <label className="check">
-            <input type="checkbox" checked={form.bride_mother_deceased} onChange={e=>update('bride_mother_deceased',e.target.checked)}/>
-            모 고인 표기
-          </label>
+          <div className="form-grid two">
+            <label>부 성함
+              <input value={form.bride_father_name} onChange={e=>update('bride_father_name',e.target.value)} required/>
+              <span className="inline-check">
+                <input type="checkbox" checked={form.bride_father_deceased} onChange={e=>update('bride_father_deceased',e.target.checked)}/>
+                고인 표기
+              </span>
+            </label>
+            <label>모 성함
+              <input value={form.bride_mother_name} onChange={e=>update('bride_mother_name',e.target.value)} required/>
+              <span className="inline-check">
+                <input type="checkbox" checked={form.bride_mother_deceased} onChange={e=>update('bride_mother_deceased',e.target.checked)}/>
+                고인 표기
+              </span>
+            </label>
+          </div>
 
           <label>화환 및 ATM 여부
             <textarea value={form.flower_notice} onChange={e=>update('flower_notice',e.target.value)} rows="3" required/>
           </label>
 
           <h2>계좌번호 1 선택</h2>
-
-          <label>은행
-            <input value={form.account_1_bank} onChange={e=>update('account_1_bank',e.target.value)}/>
-          </label>
-
-          <label>이름
-            <input value={form.account_1_name} onChange={e=>update('account_1_name',e.target.value)}/>
-          </label>
-
-          <label>계좌번호
-            <input value={form.account_1_number} onChange={e=>update('account_1_number',e.target.value)}/>
-          </label>
+          <div className="form-grid three">
+            <label>은행
+              <input value={form.account_1_bank} onChange={e=>update('account_1_bank',e.target.value)}/>
+            </label>
+            <label>이름
+              <input value={form.account_1_name} onChange={e=>update('account_1_name',e.target.value)}/>
+            </label>
+            <label>계좌번호
+              <input value={form.account_1_number} onChange={e=>update('account_1_number',e.target.value)}/>
+            </label>
+          </div>
 
           <h2>계좌번호 2 선택</h2>
-
-          <label>은행
-            <input value={form.account_2_bank} onChange={e=>update('account_2_bank',e.target.value)}/>
-          </label>
-
-          <label>이름
-            <input value={form.account_2_name} onChange={e=>update('account_2_name',e.target.value)}/>
-          </label>
-
-          <label>계좌번호
-            <input value={form.account_2_number} onChange={e=>update('account_2_number',e.target.value)}/>
-          </label>
+          <div className="form-grid three">
+            <label>은행
+              <input value={form.account_2_bank} onChange={e=>update('account_2_bank',e.target.value)}/>
+            </label>
+            <label>이름
+              <input value={form.account_2_name} onChange={e=>update('account_2_name',e.target.value)}/>
+            </label>
+            <label>계좌번호
+              <input value={form.account_2_number} onChange={e=>update('account_2_number',e.target.value)}/>
+            </label>
+          </div>
 
           <button className="primary" disabled={saving}>
             {saving?'제출 중':'제출하기'}
@@ -463,7 +466,6 @@ function OrderForm(){
     </>
   );
 }
-
 function Admin(){
   const[session,setSession]=useState(null);
   const[loading,setLoading]=useState(true);
