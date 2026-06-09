@@ -210,149 +210,254 @@ function ProductDetail(){
   );
 }
 function OrderForm(){
+  const params=new URLSearchParams(window.location.search);
+  const type=params.get('type');
+  const productId=params.get('product');
+
+  const[product,setProduct]=useState(null);
+  const[saving,setSaving]=useState(false);
+  const[done,setDone]=useState(false);
+  const[message,setMessage]=useState('');
+
+  const[form,setForm]=useState({
+    customer_name:'',
+    phone:'',
+    groom_name:'',
+    groom_name_en:'',
+    bride_name:'',
+    bride_name_en:'',
+    wedding_date:'',
+    wedding_time_period:'AM',
+    wedding_place:'',
+    wedding_address:'',
+    wedding_phone:'',
+    route_option:'오시는 길 안내',
+    route_text:'',
+    mobile_qr_link:'',
+    groom_father_name:'',
+    groom_father_deceased:false,
+    groom_mother_name:'',
+    groom_mother_deceased:false,
+    bride_father_name:'',
+    bride_father_deceased:false,
+    bride_mother_name:'',
+    bride_mother_deceased:false,
+    flower_notice:'',
+    account_1_bank:'',
+    account_1_name:'',
+    account_1_number:'',
+    account_2_bank:'',
+    account_2_name:'',
+    account_2_number:''
+  });
+
+  useEffect(()=>{
+    if(!productId)return;
+    supabase.from('products').select('*').eq('id',productId).single()
+      .then(({data})=>setProduct(data||null));
+  },[productId]);
+
+  function update(key,value){
+    setForm(prev=>({...prev,[key]:value}));
+  }
+
+  async function submit(e){
+    e.preventDefault();
+    setSaving(true);
+    setMessage('');
+
+    const payload={
+      product_id:productId,
+      product_name:product?.name||'',
+      ...form,
+      status:'접수'
+    };
+
+    const{error}=await supabase.from('orders').insert(payload);
+
+    setSaving(false);
+
+    if(error){
+      setMessage('제출에 실패했습니다. 잠시 후 다시 시도해주세요.');
+      return;
+    }
+
+    setDone(true);
+  }
+
+  if(type!=='invitation'){
+    return(
+      <>
+        <Header/>
+        <main className="container">
+          <p className="muted">준비 중인 주문서입니다.</p>
+        </main>
+      </>
+    );
+  }
+
+  if(done){
+    return(
+      <>
+        <Header/>
+        <main className="container">
+          <section className="panel">
+            <p className="eyebrow">NEU order</p>
+            <h1>주문서가 제출되었습니다.</h1>
+            <p className="muted">확인 후 순차적으로 연락드리겠습니다.</p>
+          </section>
+        </main>
+      </>
+    );
+  }
+
   return(
     <>
       <Header/>
       <main className="container">
-        <form className="panel form">
+        <form className="panel form" onSubmit={submit}>
           <p className="eyebrow">NEU invitation order</p>
           <h1>청첩장 주문서</h1>
 
           <label>주문자 성함
-            <input required/>
+            <input value={form.customer_name} onChange={e=>update('customer_name',e.target.value)} required/>
           </label>
 
           <label>연락처
-            <input required/>
+            <input value={form.phone} onChange={e=>update('phone',e.target.value)} required/>
           </label>
 
           <label>신랑 성함 한글
-            <input required/>
+            <input value={form.groom_name} onChange={e=>update('groom_name',e.target.value)} required/>
           </label>
 
           <label>신랑 성함 영문
-            <input required/>
+            <input value={form.groom_name_en} onChange={e=>update('groom_name_en',e.target.value)} required/>
           </label>
 
           <label>신부 성함 한글
-            <input required/>
+            <input value={form.bride_name} onChange={e=>update('bride_name',e.target.value)} required/>
           </label>
 
           <label>신부 성함 영문
-            <input required/>
+            <input value={form.bride_name_en} onChange={e=>update('bride_name_en',e.target.value)} required/>
           </label>
 
           <label>예식 일시
-            <input placeholder="예: 2026년 11월 7일 토요일 12시" required/>
+            <input value={form.wedding_date} onChange={e=>update('wedding_date',e.target.value)} placeholder="예: 2026년 11월 7일 토요일 12시" required/>
           </label>
 
           <label>AM / PM
-            <select required>
+            <select value={form.wedding_time_period} onChange={e=>update('wedding_time_period',e.target.value)} required>
               <option value="AM">AM 오전</option>
               <option value="PM">PM 오후</option>
             </select>
           </label>
 
           <label>식장명
-            <input required/>
+            <input value={form.wedding_place} onChange={e=>update('wedding_place',e.target.value)} required/>
           </label>
 
           <label>식장 주소
-            <input required/>
+            <input value={form.wedding_address} onChange={e=>update('wedding_address',e.target.value)} required/>
           </label>
 
           <label>식장 연락처
-            <input required/>
+            <input value={form.wedding_phone} onChange={e=>update('wedding_phone',e.target.value)} required/>
           </label>
 
           <label>오시는 길 안내 또는 글귀
-            <select required>
+            <select value={form.route_option} onChange={e=>update('route_option',e.target.value)} required>
               <option value="오시는 길 안내">오시는 길 안내</option>
               <option value="글귀">글귀</option>
             </select>
           </label>
 
-          <label>내용
-            <textarea rows="4" required/>
+          <label>{form.route_option} 내용
+            <textarea value={form.route_text} onChange={e=>update('route_text',e.target.value)} rows="4" required/>
           </label>
 
           <label>모바일 청첩장 QR 코드 링크
-            <input required/>
+            <input value={form.mobile_qr_link} onChange={e=>update('mobile_qr_link',e.target.value)} required/>
           </label>
 
           <h2>신랑측</h2>
 
           <label>부 성함
-            <input required/>
+            <input value={form.groom_father_name} onChange={e=>update('groom_father_name',e.target.value)} required/>
           </label>
 
           <label className="check">
-            <input type="checkbox"/>
+            <input type="checkbox" checked={form.groom_father_deceased} onChange={e=>update('groom_father_deceased',e.target.checked)}/>
             부 고인 표기
           </label>
 
           <label>모 성함
-            <input required/>
+            <input value={form.groom_mother_name} onChange={e=>update('groom_mother_name',e.target.value)} required/>
           </label>
 
           <label className="check">
-            <input type="checkbox"/>
+            <input type="checkbox" checked={form.groom_mother_deceased} onChange={e=>update('groom_mother_deceased',e.target.checked)}/>
             모 고인 표기
           </label>
 
           <h2>신부측</h2>
 
           <label>부 성함
-            <input required/>
+            <input value={form.bride_father_name} onChange={e=>update('bride_father_name',e.target.value)} required/>
           </label>
 
           <label className="check">
-            <input type="checkbox"/>
+            <input type="checkbox" checked={form.bride_father_deceased} onChange={e=>update('bride_father_deceased',e.target.checked)}/>
             부 고인 표기
           </label>
 
           <label>모 성함
-            <input required/>
+            <input value={form.bride_mother_name} onChange={e=>update('bride_mother_name',e.target.value)} required/>
           </label>
 
           <label className="check">
-            <input type="checkbox"/>
+            <input type="checkbox" checked={form.bride_mother_deceased} onChange={e=>update('bride_mother_deceased',e.target.checked)}/>
             모 고인 표기
           </label>
 
           <label>화환 및 ATM 여부
-            <textarea rows="3" required/>
+            <textarea value={form.flower_notice} onChange={e=>update('flower_notice',e.target.value)} rows="3" required/>
           </label>
 
           <h2>계좌번호 1 선택</h2>
 
           <label>은행
-            <input/>
+            <input value={form.account_1_bank} onChange={e=>update('account_1_bank',e.target.value)}/>
           </label>
 
           <label>이름
-            <input/>
+            <input value={form.account_1_name} onChange={e=>update('account_1_name',e.target.value)}/>
           </label>
 
           <label>계좌번호
-            <input/>
+            <input value={form.account_1_number} onChange={e=>update('account_1_number',e.target.value)}/>
           </label>
 
           <h2>계좌번호 2 선택</h2>
 
           <label>은행
-            <input/>
+            <input value={form.account_2_bank} onChange={e=>update('account_2_bank',e.target.value)}/>
           </label>
 
           <label>이름
-            <input/>
+            <input value={form.account_2_name} onChange={e=>update('account_2_name',e.target.value)}/>
           </label>
 
           <label>계좌번호
-            <input/>
+            <input value={form.account_2_number} onChange={e=>update('account_2_number',e.target.value)}/>
           </label>
 
-          <button className="primary">제출하기</button>
+          <button className="primary" disabled={saving}>
+            {saving?'제출 중':'제출하기'}
+          </button>
+
+          {message?<p className="error">{message}</p>:null}
         </form>
       </main>
     </>
