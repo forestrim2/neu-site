@@ -539,6 +539,7 @@ function Dashboard(){
   const[orders,setOrders]=useState([]);
   const[activeTab,setActiveTab]=useState('products');
   const[selectedOrder,setSelectedOrder]=useState(null);
+  const[orderSearch,setOrderSearch]=useState('');
   const[form,setForm]=useState(emptyForm);
   const[editingId,setEditingId]=useState(null);
   const[saving,setSaving]=useState(false);
