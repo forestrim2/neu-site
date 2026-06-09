@@ -342,7 +342,7 @@ function OrderForm(){
               <input value={form.groom_name} onChange={e=>update('groom_name',e.target.value)} required/>
             </label>
             <label>신랑 영문명
-              <input value={form.groom_name_en} onChange={e=>update('groom_name_en',e.target.value)} required/>
+              <input value={form.groom_name_en} onChange={e=>update('groom_name_en',e.target.value)} placeholder="앞면 하단에 기재됩니다." required/>
             </label>
           </div>
 
@@ -351,7 +351,7 @@ function OrderForm(){
               <input value={form.bride_name} onChange={e=>update('bride_name',e.target.value)} required/>
             </label>
             <label>신부 영문명
-              <input value={form.bride_name_en} onChange={e=>update('bride_name_en',e.target.value)} required/>
+              <input value={form.bride_name_en} onChange={e=>update('bride_name_en',e.target.value)} placeholder="앞면 하단에 기재됩니다." required/>
             </label>
           </div>
 
@@ -369,18 +369,18 @@ function OrderForm(){
 
           <div className="form-grid two">
             <label>식장명
-              <input value={form.wedding_place} onChange={e=>update('wedding_place',e.target.value)} required/>
+              <input value={form.wedding_place} onChange={e=>update('wedding_place',e.target.value)} placeholder="뒷면 메인에 기재됩니다." required/>
             </label>
-            <label>식장 연락처
-              <input value={form.wedding_phone} onChange={e=>update('wedding_phone',e.target.value)} required/>
+            <label>(선택)식장 연락처
+              <input value={form.wedding_phone} onChange={e=>update('wedding_phone',e.target.value)} placeholder="뒷면 오시는 길 안내에 기재됩니다." />
             </label>
           </div>
 
           <label>식장 주소
-            <input value={form.wedding_address} onChange={e=>update('wedding_address',e.target.value)} required/>
+            <input value={form.wedding_address} onChange={e=>update('wedding_address',e.target.value)} placeholder="뒷면 메인에 기재됩니다." required/>
           </label>
 
-          <label>오시는 길 안내 또는 글귀
+          <label>오시는 길 안내 or 글귀 (택1)
             <select value={form.route_option} onChange={e=>update('route_option',e.target.value)} required>
               <option value="오시는 길 안내">오시는 길 안내</option>
               <option value="글귀">글귀</option>
@@ -392,11 +392,11 @@ function OrderForm(){
           </label>
 
           <label>(선택)모바일 청첩장 QR 코드 링크
-            <input value={form.mobile_qr_link} onChange={e=>update('mobile_qr_link',e.target.value)} />
+            <input value={form.mobile_qr_link} onChange={e=>update('mobile_qr_link',e.target.value)} placeholder="QR이 없을 경우 공란 혹은 하트 이미지로 대체됩니다." />
           </label>
 
           <label>(선택)화환 및 ATM 여부
-            <textarea value={form.flower_notice} onChange={e=>update('flower_notice',e.target.value)} rows="3" />
+            <textarea value={form.flower_notice} onChange={e=>update('flower_notice',e.target.value)} rows="3" placeholder="예: 화환은 정중히 사양합니다 / 식장 내 ATM이 없으니 참고 부탁드립니다." />
           </label>
 
           <div className="honju-section">
