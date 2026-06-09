@@ -535,39 +535,39 @@ const emptyForm={
 };
 
 function Dashboard(){
-const[products,setProducts]=useState([]);
-const[orders,setOrders]=useState([]);
-const[activeTab,setActiveTab]=useState('products');
+  const[products,setProducts]=useState([]);
+  const[orders,setOrders]=useState([]);
+  const[activeTab,setActiveTab]=useState('products');
   const[selectedOrder,setSelectedOrder]=useState(null);
-const[form,setForm]=useState(emptyForm);
+  const[form,setForm]=useState(emptyForm);
   const[editingId,setEditingId]=useState(null);
   const[saving,setSaving]=useState(false);
   const[message,setMessage]=useState('');
 
   const sortedProducts=useMemo(()=>products,[products]);
 
-async function load(){
-  const{data:productData}=await supabase
-    .from('products')
-    .select('*')
-    .order('display_order',{ascending:true})
-    .order('created_at',{ascending:false});
+  async function load(){
+    const{data:productData}=await supabase
+      .from('products')
+      .select('*')
+      .order('display_order',{ascending:true})
+      .order('created_at',{ascending:false});
 
-  setProducts(productData||[]);
+    setProducts(productData||[]);
 
-  const{data:orderData,error:orderError}=await supabase
-    .from('orders')
-    .select('*')
-    .order('created_at',{ascending:false});
+    const{data:orderData,error:orderError}=await supabase
+      .from('orders')
+      .select('*')
+      .order('created_at',{ascending:false});
 
-  if(orderError){
-    console.log(orderError);
-    setMessage('주문서를 불러오지 못했습니다. Supabase orders 정책을 확인해주세요.');
-    return;
+    if(orderError){
+      console.log(orderError);
+      setMessage('주문서를 불러오지 못했습니다. Supabase orders 정책을 확인해주세요.');
+      return;
+    }
+
+    setOrders(orderData||[]);
   }
-
-  setOrders(orderData||[]);
-}
 
   useEffect(()=>{load();},[]);
 
@@ -579,14 +579,24 @@ async function load(){
 
   async function uploadFiles(files,type){
     const urls=[];
+
     for(const file of files){
       const safeName=file.name.replace(/[^a-zA-Z0-9._-]/g,'-');
       const path=`${type}/${Date.now()}-${crypto.randomUUID()}-${safeName}`;
-      const{error}=await supabase.storage.from('product-images').upload(path,file,{upsert:false});
-      if(error)throw error;
-      const{data}=supabase.storage.from('product-images').getPublicUrl(path);
+
+      const{error}=await supabase.storage
+        .from('product-images')
+        .upload(path,file,{upsert:false});
+
+      if(error) throw error;
+
+      const{data}=supabase.storage
+        .from('product-images')
+        .getPublicUrl(path);
+
       urls.push(data.publicUrl);
     }
+
     return urls;
   }
 
