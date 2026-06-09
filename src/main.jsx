@@ -845,6 +845,32 @@ setForm({
     </>
   ) : null}
 
+      {activeTab === 'orders' ? (
+  <section className="panel list">
+    <h2>접수된 주문서</h2>
+
+    {orders.length===0?<p className="muted">접수된 주문서가 없습니다.</p>:null}
+
+    {orders.map(order=>(
+      <div className="order-admin-item" key={order.id}>
+        <div>
+          <h3>{order.customer_name || '이름 없음'}</h3>
+          <p>연락처: {order.number || '-'}</p>
+          <p>예식일시: {order.wedding_date || '-'} {order.wedding_time || ''}</p>
+        </div>
+
+        <button
+          type="button"
+          className="ghost"
+          onClick={()=>alert('주문서 전체 내용은 다음 단계에서 보기 좋게 정리합니다.')}
+        >
+          자세히보기
+        </button>
+      </div>
+    ))}
+  </section>
+) : null}
+
     </main>
   );
 }
