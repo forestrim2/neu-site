@@ -26,8 +26,9 @@ function App(){
   const path=window.location.pathname;
   if(!SUPABASE_URL||!SUPABASE_ANON_KEY)return<SetupNotice/>;
   if(path==='/admin')return<Admin/>;
-  if(path==='/product')return<ProductDetail/>;
-  return<Home/>;
+if(path==='/product')return<ProductDetail/>;
+if(path==='/order')return<OrderForm/>;
+return<Home/>;
 }
 
 function SetupNotice(){
