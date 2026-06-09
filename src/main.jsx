@@ -956,22 +956,22 @@ setForm({
       <div className="detail-grid two">
         <div>
           <strong>신랑측 부</strong>
-          <p>{selectedOrder.groom_father_deceased ? '故 ' : ''}{selectedOrder.groom_father_name || '-'}</p>
+          <p>{selectedOrder.groom_father_deceased ? '고 ' : ''}{selectedOrder.groom_father_name || '-'}</p>
         </div>
         <div>
           <strong>신랑측 모</strong>
-          <p>{selectedOrder.groom_mother_deceased ? '故 ' : ''}{selectedOrder.groom_mother_name || '-'}</p>
+          <p>{selectedOrder.groom_mother_deceased ? '고 ' : ''}{selectedOrder.groom_mother_name || '-'}</p>
         </div>
       </div>
 
       <div className="detail-grid two">
         <div>
           <strong>신부측 부</strong>
-          <p>{selectedOrder.bride_father_deceased ? '故 ' : ''}{selectedOrder.bride_father_name || '-'}</p>
+          <p>{selectedOrder.bride_father_deceased ? '고 ' : ''}{selectedOrder.bride_father_name || '-'}</p>
         </div>
         <div>
           <strong>신부측 모</strong>
-          <p>{selectedOrder.bride_mother_deceased ? '故 ' : ''}{selectedOrder.bride_mother_name || '-'}</p>
+          <p>{selectedOrder.bride_mother_deceased ? '고 ' : ''}{selectedOrder.bride_mother_name || '-'}</p>
         </div>
       </div>
 
