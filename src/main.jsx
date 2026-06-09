@@ -299,7 +299,7 @@ function OrderForm(){
           <section className="panel order-form">
             <p className="eyebrow">NEU order</p>
             <h1>주문서가 제출되었습니다.</h1>
-            <p className="muted">확인 후 순차적으로 연락드리겠습니다.</p>
+            <p className="muted">DM으로 "주문서 작성 완료"라고 보내주세요.</p>
           </section>
         </main>
       </>
