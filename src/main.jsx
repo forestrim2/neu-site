@@ -869,8 +869,60 @@ setForm({
 </button>
       </div>
     ))}
-  </section>
-) : null}
+  {orders.length===0?<p className="muted">접수된 주문서가 없습니다.</p>:null}
+
+  {orders.map(order=>(
+    <div className="order-admin-item" key={order.id}>
+      <div>
+        <h3>{order.customer_name || '이름 없음'}</h3>
+        <p>연락처: {order.number || '-'}</p>
+        <p>예식일시: {order.wedding_date || '-'} {order.wedding_time || ''}</p>
+      </div>
+
+      <button
+        type="button"
+        className="ghost"
+        onClick={()=>setSelectedOrder(order)}
+      >
+        자세히보기
+      </button>
+    </div>
+  ))}
+
+  {selectedOrder ? (
+    <div className="panel order-detail">
+      <h2>주문서 상세</h2>
+
+      <p><strong>주문자명</strong><br/>{selectedOrder.customer_name || '-'}</p>
+      <p><strong>연락처</strong><br/>{selectedOrder.number || '-'}</p>
+
+      <p><strong>신랑명</strong><br/>
+        {selectedOrder.groom_name || '-'}
+        {selectedOrder.groom_name_en ? ` (${selectedOrder.groom_name_en})` : ''}
+      </p>
+
+      <p><strong>신부명</strong><br/>
+        {selectedOrder.bride_name || '-'}
+        {selectedOrder.bride_name_en ? ` (${selectedOrder.bride_name_en})` : ''}
+      </p>
+
+      <p><strong>예식일시</strong><br/>
+        {selectedOrder.wedding_date || '-'} {selectedOrder.wedding_time || ''}
+      </p>
+
+      <p><strong>식장명</strong><br/>{selectedOrder.wedding_place || '-'}</p>
+
+      <button
+        type="button"
+        className="ghost"
+        onClick={()=>setSelectedOrder(null)}
+      >
+        닫기
+      </button>
+    </div>
+  ) : null}
+</section>
+  ) : null}
 
     </main>
   );
