@@ -244,6 +244,7 @@ const emptyForm={
   detail_images:[],
   description:'',
   order_form_url:'',
+  use_order_form:false,
   is_public:false,
   link_public:false
 };
@@ -315,7 +316,7 @@ function Dashboard(){
     setSaving(true);
     setMessage('');
 
-  const payload={
+ const payload={
   name:form.name,
   price:form.price,
   display_order:form.display_order,
@@ -323,6 +324,7 @@ function Dashboard(){
   detail_images:form.detail_images||[],
   description:form.description,
   order_form_url:form.order_form_url,
+  use_order_form:form.use_order_form,
   is_public:form.is_public,
   link_public:form.link_public
 };
@@ -344,7 +346,7 @@ function Dashboard(){
 
   function edit(item){
     setEditingId(item.id);
- setForm({
+setForm({
   name:item.name||'',
   price:item.price||'',
   display_order:item.display_order||999,
@@ -352,6 +354,7 @@ function Dashboard(){
   detail_images:item.detail_images||[],
   description:item.description||'',
   order_form_url:item.order_form_url||'',
+  use_order_form:!!item.use_order_form,
   is_public:!!item.is_public,
   link_public:!!item.link_public
 });
