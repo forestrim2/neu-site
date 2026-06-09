@@ -445,7 +445,6 @@ function OrderForm(){
                 <input value={form.bride_mother_name} onChange={e=>update('bride_mother_name',e.target.value)} />
               </label>
             </div>
-          </div>
 
           <h2>(선택)계좌 정보 (최대 2개)</h2>
 
