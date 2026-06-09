@@ -862,7 +862,7 @@ setForm({
         onClick={()=>setSelectedOrder(order)}
       >
         <h3>{order.customer_name || '이름 없음'}</h3>
-        <p>{order.number || '-'}</p>
+        <p>{order.phone || '-'}</p>
         <p>{order.wedding_date || '-'} {order.wedding_time || ''}</p>
       </div>
     ))}
@@ -880,7 +880,7 @@ setForm({
         </div>
         <div>
           <strong>연락처</strong>
-          <p>{selectedOrder.number || '-'}</p>
+          <p>{selectedOrder.phone || '-'}</p>
         </div>
       </div>
 
