@@ -209,6 +209,155 @@ function ProductDetail(){
     </>
   );
 }
+function OrderForm(){
+  return(
+    <>
+      <Header/>
+      <main className="container">
+        <form className="panel form">
+          <p className="eyebrow">NEU invitation order</p>
+          <h1>청첩장 주문서</h1>
+
+          <label>주문자 성함
+            <input required/>
+          </label>
+
+          <label>연락처
+            <input required/>
+          </label>
+
+          <label>신랑 성함 한글
+            <input required/>
+          </label>
+
+          <label>신랑 성함 영문
+            <input required/>
+          </label>
+
+          <label>신부 성함 한글
+            <input required/>
+          </label>
+
+          <label>신부 성함 영문
+            <input required/>
+          </label>
+
+          <label>예식 일시
+            <input placeholder="예: 2026년 11월 7일 토요일 12시" required/>
+          </label>
+
+          <label>AM / PM
+            <select required>
+              <option value="AM">AM 오전</option>
+              <option value="PM">PM 오후</option>
+            </select>
+          </label>
+
+          <label>식장명
+            <input required/>
+          </label>
+
+          <label>식장 주소
+            <input required/>
+          </label>
+
+          <label>식장 연락처
+            <input required/>
+          </label>
+
+          <label>오시는 길 안내 또는 글귀
+            <select required>
+              <option value="오시는 길 안내">오시는 길 안내</option>
+              <option value="글귀">글귀</option>
+            </select>
+          </label>
+
+          <label>내용
+            <textarea rows="4" required/>
+          </label>
+
+          <label>모바일 청첩장 QR 코드 링크
+            <input required/>
+          </label>
+
+          <h2>신랑측</h2>
+
+          <label>부 성함
+            <input required/>
+          </label>
+
+          <label className="check">
+            <input type="checkbox"/>
+            부 고인 표기
+          </label>
+
+          <label>모 성함
+            <input required/>
+          </label>
+
+          <label className="check">
+            <input type="checkbox"/>
+            모 고인 표기
+          </label>
+
+          <h2>신부측</h2>
+
+          <label>부 성함
+            <input required/>
+          </label>
+
+          <label className="check">
+            <input type="checkbox"/>
+            부 고인 표기
+          </label>
+
+          <label>모 성함
+            <input required/>
+          </label>
+
+          <label className="check">
+            <input type="checkbox"/>
+            모 고인 표기
+          </label>
+
+          <label>화환 및 ATM 여부
+            <textarea rows="3" required/>
+          </label>
+
+          <h2>계좌번호 1 선택</h2>
+
+          <label>은행
+            <input/>
+          </label>
+
+          <label>이름
+            <input/>
+          </label>
+
+          <label>계좌번호
+            <input/>
+          </label>
+
+          <h2>계좌번호 2 선택</h2>
+
+          <label>은행
+            <input/>
+          </label>
+
+          <label>이름
+            <input/>
+          </label>
+
+          <label>계좌번호
+            <input/>
+          </label>
+
+          <button className="primary">제출하기</button>
+        </form>
+      </main>
+    </>
+  );
+}
 
 function Admin(){
   const[session,setSession]=useState(null);
