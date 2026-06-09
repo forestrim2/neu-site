@@ -446,6 +446,8 @@ function OrderForm(){
               </label>
             </div>
 
+                    </div>
+          
           <h2>(선택)계좌 정보 (최대 2개)</h2>
 
           <div className="form-grid three">
@@ -464,7 +466,7 @@ function OrderForm(){
             <label>은행
               <input value={form.account_2_bank} onChange={e=>update('account_2_bank',e.target.value)}/>
             </label>
-            <label>성
+            <label>성함
               <input value={form.account_2_name} onChange={e=>update('account_2_name',e.target.value)}/>
             </label>
             <label>계좌번호
