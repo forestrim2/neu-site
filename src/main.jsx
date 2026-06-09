@@ -857,13 +857,26 @@ setForm({
 
       {activeTab === 'orders' ? (
   <section className="panel list">
-    <h2>접수된 주문서</h2>
+<h2>접수된 주문서</h2>
+
+<input
+  className="order-search"
+  placeholder="주문자명 검색"
+  value={orderSearch}
+  onChange={e=>setOrderSearch(e.target.value)}
+/>
 
 <div className="orders-layout">
   <div className="orders-list">
     {orders.length===0?<p className="muted">접수된 주문서가 없습니다.</p>:null}
 
-    {orders.map(order=>(
+    {orders
+  .filter(order=>
+    (order.customer_name || '')
+      .toLowerCase()
+      .includes(orderSearch.toLowerCase())
+  )
+  .map(order=>(
       <div
         key={order.id}
         className={`order-card ${selectedOrder?.id===order.id ? 'active' : ''}`}
