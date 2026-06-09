@@ -536,23 +536,37 @@ const emptyForm={
 };
 
 function Dashboard(){
-  const[products,setProducts]=useState([]);
-  const[form,setForm]=useState(emptyForm);
+const[products,setProducts]=useState([]);
+const[orders,setOrders]=useState([]);
+const[form,setForm]=useState(emptyForm);
   const[editingId,setEditingId]=useState(null);
   const[saving,setSaving]=useState(false);
   const[message,setMessage]=useState('');
 
   const sortedProducts=useMemo(()=>products,[products]);
 
-  async function load(){
-    const{data}=await supabase
-      .from('products')
-      .select('*')
-      .order('display_order',{ascending:true})
-      .order('created_at',{ascending:false});
+async function load(){
+  const{data:productData}=await supabase
+    .from('products')
+    .select('*')
+    .order('display_order',{ascending:true})
+    .order('created_at',{ascending:false});
 
-    setProducts(data||[]);
+  setProducts(productData||[]);
+
+  const{data:orderData,error:orderError}=await supabase
+    .from('orders')
+    .select('*')
+    .order('created_at',{ascending:false});
+
+  if(orderError){
+    console.log(orderError);
+    setMessage('주문서를 불러오지 못했습니다. Supabase orders 정책을 확인해주세요.');
+    return;
   }
+
+  setOrders(orderData||[]);
+}
 
   useEffect(()=>{load();},[]);
 
@@ -780,6 +794,23 @@ setForm({
         {message?<p className="error">{message}</p>:null}
       </form>
 
+    <section className="panel list">
+  <h2>접수된 주문서</h2>
+
+  {orders.length===0?<p className="muted">접수된 주문서가 없습니다.</p>:null}
+
+  {orders.map(order=>(
+    <div className="order-admin-item" key={order.id}>
+      <h3>{order.customer_name||'이름 없음'}</h3>
+      <p>연락처: {order.phone||'-'}</p>
+      <p>상품: {order.product_name||'-'}</p>
+      <p>예식일시: {order.wedding_date||'-'} {order.wedding_time_period||''}</p>
+      <p>식장: {order.wedding_place||'-'}</p>
+      <p>상태: {order.status||'접수'}</p>
+    </div>
+  ))}
+      
+</section>
       <section className="panel list">
         <h2>등록된 상품</h2>
 
