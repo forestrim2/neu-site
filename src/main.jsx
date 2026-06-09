@@ -334,7 +334,9 @@ function OrderForm(){
               <input value={form.phone} onChange={e=>update('phone',e.target.value)} required/>
             </label>
           </div>
-
+          
+<div className="order-divider"></div>
+          
           <div className="form-grid two">
             <label>신랑 한글명
               <input value={form.groom_name} onChange={e=>update('groom_name',e.target.value)} required/>
@@ -393,9 +395,15 @@ function OrderForm(){
 <label>모바일 청첩장 QR 코드 링크
   <input value={form.mobile_qr_link} onChange={e=>update('mobile_qr_link',e.target.value)} required/>
 </label>
+                      </div>
+
+          <label>화환 및 ATM 여부 (선택)
+            <textarea value={form.flower_notice} onChange={e=>update('flower_notice',e.target.value)} rows="3" />
+          </label>
+                 </div>
 
           <div className="honju-section">
-            <h2 className="honju-title">혼주</h2>
+            <h2 className="honju-title">혼주 정보</h2>
 
             <div className="honju-row">
               <div className="honju-side">신랑측 : </div>
@@ -440,13 +448,8 @@ function OrderForm(){
                 <input value={form.bride_mother_name} onChange={e=>update('bride_mother_name',e.target.value)} />
               </label>
             </div>
-          </div>
 
-          <label>화환 및 ATM 여부 (선택)
-            <textarea value={form.flower_notice} onChange={e=>update('flower_notice',e.target.value)} rows="3" />
-          </label>
-
-          <h2>계좌정보 (선택 · 최대 2개) </h2>
+          <h2>계좌 정보 (선택 · 최대 2개) </h2>
           <div className="form-grid three">
             <label>은행
               <input value={form.account_1_bank} onChange={e=>update('account_1_bank',e.target.value)}/>
