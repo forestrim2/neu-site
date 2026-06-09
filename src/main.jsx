@@ -392,8 +392,8 @@ function OrderForm(){
   <textarea value={form.route_text} onChange={e=>update('route_text',e.target.value)} rows="4" required/>
 </label>
 
-<label>모바일 청첩장 QR 코드 링크
-  <input value={form.mobile_qr_link} onChange={e=>update('mobile_qr_link',e.target.value)} required/>
+<label>모바일 청첩장 QR 코드 링크 (선택)
+  <input value={form.mobile_qr_link} onChange={e=>update('mobile_qr_link',e.target.value)} />
 </label>
                       </div>
 
