@@ -168,9 +168,20 @@ function ProductDetail(){
           {product.price?<p className="price">{money(product.price)}</p>:null}
           {product.description?<p className="desc">{product.description}</p>:null}
 
-          <a className="dm-button" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
-            주문 문의(DM)
-          </a>
+         <a className="dm-button" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
+  주문 문의(DM)
+</a>
+
+{product.order_form_url ? (
+  <a
+    className="dm-button"
+    href={product.order_form_url}
+    target="_blank"
+    rel="noreferrer"
+  >
+    주문서 작성하기
+  </a>
+) : null}
 
           {product.cover_image?(
             <img className="detail-cover" src={product.cover_image} alt={`${product.name} 대표 이미지`}/>
@@ -232,6 +243,7 @@ const emptyForm={
   cover_image:'',
   detail_images:[],
   description:'',
+  order_form_url:'',
   is_public:false,
   link_public:false
 };
@@ -303,16 +315,17 @@ function Dashboard(){
     setSaving(true);
     setMessage('');
 
-    const payload={
-      name:form.name,
-      price:form.price,
-      display_order:form.display_order,
-      cover_image:form.cover_image,
-      detail_images:form.detail_images||[],
-      description:form.description,
-      is_public:form.is_public,
-      link_public:form.link_public
-    };
+  const payload={
+  name:form.name,
+  price:form.price,
+  display_order:form.display_order,
+  cover_image:form.cover_image,
+  detail_images:form.detail_images||[],
+  description:form.description,
+  order_form_url:form.order_form_url,
+  is_public:form.is_public,
+  link_public:form.link_public
+};
 
     const result=editingId
       ?await supabase.from('products').update(payload).eq('id',editingId)
@@ -331,16 +344,17 @@ function Dashboard(){
 
   function edit(item){
     setEditingId(item.id);
-    setForm({
-      name:item.name||'',
-      price:item.price||'',
-      display_order:item.display_order||999,
-      cover_image:item.cover_image||'',
-      detail_images:item.detail_images||[],
-      description:item.description||'',
-      is_public:!!item.is_public,
-      link_public:!!item.link_public
-    });
+ setForm({
+  name:item.name||'',
+  price:item.price||'',
+  display_order:item.display_order||999,
+  cover_image:item.cover_image||'',
+  detail_images:item.detail_images||[],
+  description:item.description||'',
+  order_form_url:item.order_form_url||'',
+  is_public:!!item.is_public,
+  link_public:!!item.link_public
+});
     window.scrollTo({top:0,behavior:'smooth'});
   }
 
@@ -395,6 +409,13 @@ function Dashboard(){
         <label>상품설명
           <textarea value={form.description} onChange={e=>setForm({...form,description:e.target.value})} rows="5"/>
         </label>
+        <label>주문서 링크
+  <input
+    value={form.order_form_url || ''}
+    onChange={e=>setForm({...form,order_form_url:e.target.value})}
+    placeholder="https://forms.gle/..."
+  />
+</label>
 
         <div className="upload-row">
           <label className="upload-box"><Upload size={18}/> 대표이미지 선택
