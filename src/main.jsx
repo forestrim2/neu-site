@@ -272,10 +272,11 @@ function OrderForm(){
     const{error}=await supabase.from('orders').insert(payload);
     setSaving(false);
 
-    if(error){
-      setMessage('제출에 실패했습니다. 잠시 후 다시 시도해주세요.');
-      return;
-    }
+   if(error){
+  console.log(error);
+  setMessage(error.message || '제출에 실패했습니다. 잠시 후 다시 시도해주세요.');
+  return;
+}
 
     setDone(true);
   }
