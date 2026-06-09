@@ -253,7 +253,11 @@ function OrderForm(){
 
   useEffect(()=>{
     if(!productId)return;
-    supabase.from('products').select('*').eq('id',productId).single()
+    supabase
+      .from('products')
+      .select('*')
+      .eq('id',productId)
+      .single()
       .then(({data})=>setProduct(data||null));
   },[productId]);
 
@@ -299,8 +303,8 @@ function OrderForm(){
     return(
       <>
         <Header/>
-        <main className="container">
-          <section className="panel">
+        <main className="order-container">
+          <section className="panel order-form">
             <p className="eyebrow">NEU order</p>
             <h1>주문서가 제출되었습니다.</h1>
             <p className="muted">확인 후 순차적으로 연락드리겠습니다.</p>
@@ -310,17 +314,17 @@ function OrderForm(){
     );
   }
 
-return(
-  <>
-    <Header/>
-    <main className="order-container">
-      <form className="panel form order-form" onSubmit={submit}>
+  return(
+    <>
+      <Header/>
+      <main className="order-container">
+        <form className="panel form order-form" onSubmit={submit}>
           <p className="eyebrow">NEU invitation order</p>
           <h1>청첩장 주문서</h1>
-          
+
           <p className="order-guide">
-  ■ 하단의 항목을 빠짐 없이 기재해주세요.
-</p>
+            ■ 하단의 항목을 빠짐 없이 기재해주세요.
+          </p>
 
           <div className="form-grid two">
             <label>주문자명
@@ -381,7 +385,6 @@ return(
                 <option value="글귀">글귀</option>
               </select>
             </label>
-                </div>
             <label>모바일 청첩장 QR 코드 링크
               <input value={form.mobile_qr_link} onChange={e=>update('mobile_qr_link',e.target.value)} required/>
             </label>
@@ -391,40 +394,52 @@ return(
             <textarea value={form.route_text} onChange={e=>update('route_text',e.target.value)} rows="4" required/>
           </label>
 
-          <h2>신랑측</h2>
-          <div className="form-grid two">
-            <label>부 성함
-              <input value={form.groom_father_name} onChange={e=>update('groom_father_name',e.target.value)} required/>
-              <span className="inline-check">
-                <input type="checkbox" checked={form.groom_father_deceased} onChange={e=>update('groom_father_deceased',e.target.checked)}/>
-                고인 표기
-              </span>
-            </label>
-            <label>모 성함
-              <input value={form.groom_mother_name} onChange={e=>update('groom_mother_name',e.target.value)} required/>
-              <span className="inline-check">
-                <input type="checkbox" checked={form.groom_mother_deceased} onChange={e=>update('groom_mother_deceased',e.target.checked)}/>
-                고인 표기
-              </span>
-            </label>
-          </div>
+          <div className="honju-section">
+            <h2 className="honju-title">혼주</h2>
 
-          <h2>신부측</h2>
-          <div className="form-grid two">
-            <label>부 성함
-              <input value={form.bride_father_name} onChange={e=>update('bride_father_name',e.target.value)} required/>
-              <span className="inline-check">
+            <div className="honju-row">
+              <div className="honju-side">신랑</div>
+
+              <label className="honju-check">
+                <input type="checkbox" checked={form.groom_father_deceased} onChange={e=>update('groom_father_deceased',e.target.checked)}/>
+                고인표기
+              </label>
+
+              <label>부 성함
+                <input value={form.groom_father_name} onChange={e=>update('groom_father_name',e.target.value)} required/>
+              </label>
+
+              <label className="honju-check">
+                <input type="checkbox" checked={form.groom_mother_deceased} onChange={e=>update('groom_mother_deceased',e.target.checked)}/>
+                고인표기
+              </label>
+
+              <label>모 성함
+                <input value={form.groom_mother_name} onChange={e=>update('groom_mother_name',e.target.value)} required/>
+              </label>
+            </div>
+
+            <div className="honju-row">
+              <div className="honju-side">신부</div>
+
+              <label className="honju-check">
                 <input type="checkbox" checked={form.bride_father_deceased} onChange={e=>update('bride_father_deceased',e.target.checked)}/>
-                고인 표기
-              </span>
-            </label>
-            <label>모 성함
-              <input value={form.bride_mother_name} onChange={e=>update('bride_mother_name',e.target.value)} required/>
-              <span className="inline-check">
+                고인표기
+              </label>
+
+              <label>부 성함
+                <input value={form.bride_father_name} onChange={e=>update('bride_father_name',e.target.value)} required/>
+              </label>
+
+              <label className="honju-check">
                 <input type="checkbox" checked={form.bride_mother_deceased} onChange={e=>update('bride_mother_deceased',e.target.checked)}/>
-                고인 표기
-              </span>
-            </label>
+                고인표기
+              </label>
+
+              <label>모 성함
+                <input value={form.bride_mother_name} onChange={e=>update('bride_mother_name',e.target.value)} required/>
+              </label>
+            </div>
           </div>
 
           <label>화환 및 ATM 여부
