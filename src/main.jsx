@@ -334,9 +334,9 @@ function OrderForm(){
               <input value={form.phone} onChange={e=>update('phone',e.target.value)} required/>
             </label>
           </div>
-          
-<div className="order-divider"></div>
-          
+
+          <div className="order-divider"></div>
+
           <div className="form-grid two">
             <label>신랑 한글명
               <input value={form.groom_name} onChange={e=>update('groom_name',e.target.value)} required/>
@@ -380,33 +380,30 @@ function OrderForm(){
             <input value={form.wedding_address} onChange={e=>update('wedding_address',e.target.value)} required/>
           </label>
 
-          <div className="form-grid two">
           <label>오시는 길 안내 또는 글귀
-  <select value={form.route_option} onChange={e=>update('route_option',e.target.value)} required>
-    <option value="오시는 길 안내">오시는 길 안내</option>
-    <option value="글귀">글귀</option>
-  </select>
-</label>
+            <select value={form.route_option} onChange={e=>update('route_option',e.target.value)} required>
+              <option value="오시는 길 안내">오시는 길 안내</option>
+              <option value="글귀">글귀</option>
+            </select>
+          </label>
 
-<label>{form.route_option} 내용
-  <textarea value={form.route_text} onChange={e=>update('route_text',e.target.value)} rows="4" required/>
-</label>
+          <label>{form.route_option} 내용
+            <textarea value={form.route_text} onChange={e=>update('route_text',e.target.value)} rows="4" required/>
+          </label>
 
-<label>모바일 청첩장 QR 코드 링크 (선택)
-  <input value={form.mobile_qr_link} onChange={e=>update('mobile_qr_link',e.target.value)} />
-</label>
-                      </div>
+          <label>모바일 청첩장 QR 코드 링크 (선택)
+            <input value={form.mobile_qr_link} onChange={e=>update('mobile_qr_link',e.target.value)} />
+          </label>
 
           <label>화환 및 ATM 여부 (선택)
             <textarea value={form.flower_notice} onChange={e=>update('flower_notice',e.target.value)} rows="3" />
           </label>
-                 </div>
 
           <div className="honju-section">
-            <h2 className="honju-title">혼주 정보</h2>
+            <h2 className="honju-title">혼주 정보 (선택)</h2>
 
             <div className="honju-row">
-              <div className="honju-side">신랑측 : </div>
+              <div className="honju-side">신랑측 :</div>
 
               <label className="honju-check">
                 <input type="checkbox" checked={form.groom_father_deceased} onChange={e=>update('groom_father_deceased',e.target.checked)}/>
@@ -428,7 +425,7 @@ function OrderForm(){
             </div>
 
             <div className="honju-row">
-              <div className="honju-side">신부측 : </div>
+              <div className="honju-side">신부측 :</div>
 
               <label className="honju-check">
                 <input type="checkbox" checked={form.bride_father_deceased} onChange={e=>update('bride_father_deceased',e.target.checked)}/>
@@ -448,8 +445,10 @@ function OrderForm(){
                 <input value={form.bride_mother_name} onChange={e=>update('bride_mother_name',e.target.value)} />
               </label>
             </div>
+          </div>
 
-          <h2>계좌 정보 (선택 · 최대 2개) </h2>
+          <h2>계좌 정보 (선택 · 최대 2개)</h2>
+
           <div className="form-grid three">
             <label>은행
               <input value={form.account_1_bank} onChange={e=>update('account_1_bank',e.target.value)}/>
@@ -461,7 +460,7 @@ function OrderForm(){
               <input value={form.account_1_number} onChange={e=>update('account_1_number',e.target.value)}/>
             </label>
           </div>
-            
+
           <div className="form-grid three">
             <label>은행
               <input value={form.account_2_bank} onChange={e=>update('account_2_bank',e.target.value)}/>
@@ -484,6 +483,7 @@ function OrderForm(){
     </>
   );
 }
+
 function Admin(){
   const[session,setSession]=useState(null);
   const[loading,setLoading]=useState(true);
