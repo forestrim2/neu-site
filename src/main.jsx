@@ -690,7 +690,7 @@ setForm({
   <header className="admin-top">
   <div>
     <p className="eyebrow">NEU admin</p>
-    <h1>{activeTab === 'products' ? '상품 관리' : '주문서 관리'}</h1>
+    <h1>{activeTab === 'products' ? '상품 관리' : '청첩장 상세'}</h1>
   </div>
   <button className="ghost" onClick={signOut}><LogOut size={16}/> 로그아웃</button>
 </header>
@@ -709,7 +709,7 @@ setForm({
     className={activeTab === 'orders' ? 'active' : ''}
     onClick={()=>setActiveTab('orders')}
   >
-    주문서 관리
+    청첩장 상세
   </button>
 </div>
 
