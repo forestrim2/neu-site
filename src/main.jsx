@@ -193,8 +193,6 @@ function ProductDetail(){
   ) : null}
 </div>
           
-) : null}
-
           {product.cover_image?(
             <img className="detail-cover" src={product.cover_image} alt={`${product.name} 대표 이미지`}/>
           ):null}
