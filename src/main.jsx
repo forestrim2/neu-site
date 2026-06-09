@@ -539,6 +539,7 @@ function Dashboard(){
 const[products,setProducts]=useState([]);
 const[orders,setOrders]=useState([]);
 const[activeTab,setActiveTab]=useState('products');
+  const[selectedOrder,setSelectedOrder]=useState(null);
 const[form,setForm]=useState(emptyForm);
   const[editingId,setEditingId]=useState(null);
   const[saving,setSaving]=useState(false);
@@ -859,13 +860,13 @@ setForm({
           <p>예식일시: {order.wedding_date || '-'} {order.wedding_time || ''}</p>
         </div>
 
-        <button
-          type="button"
-          className="ghost"
-          onClick={()=>alert('주문서 전체 내용은 다음 단계에서 보기 좋게 정리합니다.')}
-        >
-          자세히보기
-        </button>
+       <button
+  type="button"
+  className="ghost"
+  onClick={()=>setSelectedOrder(order)}
+>
+  자세히보기
+</button>
       </div>
     ))}
   </section>
