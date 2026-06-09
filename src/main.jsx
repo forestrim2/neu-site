@@ -310,11 +310,11 @@ function OrderForm(){
     );
   }
 
-  return(
-    <>
-      <Header/>
-      <main className="container">
-        <form className="panel form" onSubmit={submit}>
+return(
+  <>
+    <Header/>
+    <main className="order-container">
+      <form className="panel form order-form" onSubmit={submit}>
           <p className="eyebrow">NEU invitation order</p>
           <h1>청첩장 주문서</h1>
           
