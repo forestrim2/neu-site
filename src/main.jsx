@@ -273,11 +273,9 @@ function OrderForm(){
     setSaving(false);
 
    if(error){
-  console.log(error);
-  setMessage(error.message || '제출에 실패했습니다. 잠시 후 다시 시도해주세요.');
+  setMessage('제출에 실패했습니다. 잠시 후 다시 시도해주세요.');
   return;
 }
-
     setDone(true);
   }
 
@@ -863,7 +861,11 @@ setForm({
       >
         <h3>{order.customer_name || '이름 없음'}</h3>
         <p>{order.phone || '-'}</p>
-        <p>{order.wedding_date || '-'} {order.wedding_time || ''}</p>
+        <p>
+  {order.wedding_date || '-'}
+  {' '}
+  {order.wedding_time_period || order.wedding_time || ''}
+</p>
       </div>
     ))}
   </div>
@@ -913,10 +915,10 @@ setForm({
           <strong>예식 일시</strong>
           <p>{selectedOrder.wedding_date || '-'}</p>
         </div>
-        <div>
-          <strong>AM / PM</strong>
-          <p>{selectedOrder.wedding_time || '-'}</p>
-        </div>
+       <div>
+  <strong>AM / PM</strong>
+  <p>{selectedOrder.wedding_time_period || selectedOrder.wedding_time || '-'}</p>
+</div>
       </div>
 
       <div className="detail-grid two">
@@ -931,9 +933,9 @@ setForm({
       </div>
 
       <div className="detail-block">
-        <strong>식장 주소</strong>
-        <p>{selectedOrder.wedding_addre || '-'}</p>
-      </div>
+  <strong>식장 주소</strong>
+  <p>{selectedOrder.wedding_address || selectedOrder.wedding_addre || '-'}</p>
+</div>
 
       <div className="detail-block">
         <strong>{selectedOrder.route_option || '오시는 길 안내'}</strong>
