@@ -538,6 +538,7 @@ const emptyForm={
 function Dashboard(){
 const[products,setProducts]=useState([]);
 const[orders,setOrders]=useState([]);
+const[activeTab,setActiveTab]=useState('products');
 const[form,setForm]=useState(emptyForm);
   const[editingId,setEditingId]=useState(null);
   const[saving,setSaving]=useState(false);
@@ -675,14 +676,35 @@ setForm({
 
   return(
     <main className="admin-wrap">
-      <header className="admin-top">
-        <div>
-          <p className="eyebrow">NEU admin</p>
-          <h1>상품 관리</h1>
-        </div>
-        <button className="ghost" onClick={signOut}><LogOut size={16}/> 로그아웃</button>
-      </header>
+  <header className="admin-top">
+  <div>
+    <p className="eyebrow">NEU admin</p>
+    <h1>{activeTab === 'products' ? '상품 관리' : '주문서 관리'}</h1>
+  </div>
+  <button className="ghost" onClick={signOut}><LogOut size={16}/> 로그아웃</button>
+</header>
 
+<div className="admin-tabs">
+  <button
+    type="button"
+    className={activeTab === 'products' ? 'active' : ''}
+    onClick={()=>setActiveTab('products')}
+  >
+    상품 관리
+  </button>
+
+  <button
+    type="button"
+    className={activeTab === 'orders' ? 'active' : ''}
+    onClick={()=>setActiveTab('orders')}
+  >
+    주문서 관리
+  </button>
+</div>
+
+      {activeTab === 'products' ? (
+  <>
+    
       <form className="panel form" onSubmit={save}>
         <div className="form-title">
           <h2>{editingId?'상품 수정':'상품 등록'}</h2>
@@ -819,8 +841,11 @@ setForm({
           </article>
         ))}
       </section>
+
+    </>
+  ) : null}
+
     </main>
   );
 }
-
 createRoot(document.getElementById('root')).render(<App/>);
