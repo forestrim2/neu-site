@@ -381,6 +381,7 @@ function OrderForm(){
                 <option value="글귀">글귀</option>
               </select>
             </label>
+                </div>
             <label>모바일 청첩장 QR 코드 링크
               <input value={form.mobile_qr_link} onChange={e=>update('mobile_qr_link',e.target.value)} required/>
             </label>
