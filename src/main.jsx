@@ -794,55 +794,6 @@ setForm({
         {message?<p className="error">{message}</p>:null}
       </form>
 
-    <section className="panel list">
-  <h2>접수된 주문서</h2>
-
-  {orders.length===0?<p className="muted">접수된 주문서가 없습니다.</p>:null}
-
-  {orders.map(order=>(
-  <div className="order-admin-item" key={order.id}>
-    <div>
-      <h3>{order.customer_name || '이름 없음'}</h3>
-      <p>연락처: {order.number || '-'}</p>
-      <p>예식일시: {order.wedding_date || '-'} {order.wedding_time || ''}</p>
-    </div>
-
-    <button
-      type="button"
-      className="ghost"
-      onClick={()=>alert(
-        `주문자명: ${order.customer_name || ''}\n` +
-        `연락처: ${order.number || ''}\n\n` +
-
-        `신랑 한글명: ${order.groom_name || ''}\n` +
-        `신랑 영문명: ${order.groom_name_en || ''}\n` +
-        `신부 한글명: ${order.bride_name || ''}\n` +
-        `신부 영문명: ${order.bride_name_en || ''}\n\n` +
-
-        `예식일시: ${order.wedding_date || ''} ${order.wedding_time || ''}\n` +
-        `식장명: ${order.wedding_place || ''}\n` +
-        `식장주소: ${order.wedding_addre || ''}\n` +
-        `식장연락처: ${order.wedding_phone || ''}\n\n` +
-
-        `${order.route_option || '오시는 길 안내'}: ${order.route_text || ''}\n` +
-        `모바일 청첩장 QR 링크: ${order.mobile_qr_lir || ''}\n` +
-        `화환 및 ATM 여부: ${order.flower_notice || ''}\n\n` +
-
-        `신랑측 부: ${order.groom_father_deceased ? '故 ' : ''}${order.groom_father_name || ''}\n` +
-        `신랑측 모: ${order.groom_mother_deceased ? '故 ' : ''}${order.groom_mother_name || ''}\n` +
-        `신부측 부: ${order.bride_father_deceased ? '故 ' : ''}${order.bride_father_name || ''}\n` +
-        `신부측 모: ${order.bride_mother_deceased ? '故 ' : ''}${order.bride_mother_name || ''}\n\n` +
-
-        `계좌 1: ${order.account_1_bank || ''} ${order.account_1_name || ''} ${order.account_1_number || ''}\n` +
-        `계좌 2: ${order.account_2_bank || ''} ${order.account_2_name || ''} ${order.account_2_number || ''}`
-      )}
-    >
-      자세히보기
-    </button>
-  </div>
-))}
-      
-</section>
       <section className="panel list">
         <h2>등록된 상품</h2>
 
