@@ -391,16 +391,16 @@ function OrderForm(){
             <textarea value={form.route_text} onChange={e=>update('route_text',e.target.value)} rows="4" required/>
           </label>
 
-          <label>모바일 청첩장 QR 코드 링크 (선택)
+          <label>(선택)모바일 청첩장 QR 코드 링크
             <input value={form.mobile_qr_link} onChange={e=>update('mobile_qr_link',e.target.value)} />
           </label>
 
-          <label>화환 및 ATM 여부 (선택)
+          <label>(선택)화환 및 ATM 여부
             <textarea value={form.flower_notice} onChange={e=>update('flower_notice',e.target.value)} rows="3" />
           </label>
 
           <div className="honju-section">
-            <h2 className="honju-title">혼주 정보 (선택)</h2>
+            <h2 className="honju-title">혼주 정보</h2>
 
             <div className="honju-row">
               <div className="honju-side">신랑측 :</div>
@@ -447,7 +447,7 @@ function OrderForm(){
             </div>
           </div>
 
-          <h2>계좌 정보 (선택 · 최대 2개)</h2>
+          <h2>(선택)계좌 정보 (최대 2개)</h2>
 
           <div className="form-grid three">
             <label>은행
