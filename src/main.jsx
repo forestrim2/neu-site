@@ -335,7 +335,7 @@ function OrderForm(){
             </label>
           </div>
 
-          <div className="order-divider"></div>
+         <div className="order-divider"></div>
 
           <div className="form-grid two">
             <label>신랑 한글명
@@ -453,7 +453,7 @@ function OrderForm(){
             <label>은행
               <input value={form.account_1_bank} onChange={e=>update('account_1_bank',e.target.value)}/>
             </label>
-            <label>이름
+            <label>성함
               <input value={form.account_1_name} onChange={e=>update('account_1_name',e.target.value)}/>
             </label>
             <label>계좌번호
@@ -465,7 +465,7 @@ function OrderForm(){
             <label>은행
               <input value={form.account_2_bank} onChange={e=>update('account_2_bank',e.target.value)}/>
             </label>
-            <label>이름
+            <label>성
               <input value={form.account_2_name} onChange={e=>update('account_2_name',e.target.value)}/>
             </label>
             <label>계좌번호
