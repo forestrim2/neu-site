@@ -850,129 +850,40 @@ setForm({
   <section className="panel list">
     <h2>접수된 주문서</h2>
 
+<div className="orders-layout">
+  <div className="orders-list">
     {orders.length===0?<p className="muted">접수된 주문서가 없습니다.</p>:null}
 
     {orders.map(order=>(
-    <div className="order-admin-item" key={order.id}>
-      <div>
-        <h3>{order.customer_name || '이름 없음'}</h3>
-        <p>연락처: {order.number || '-'}</p>
-        <p>예식일시: {order.wedding_date || '-'} {order.wedding_time || ''}</p>
-      </div>
-
-      <button
-        type="button"
-        className="ghost"
+      <div
+        key={order.id}
+        className={`order-card ${selectedOrder?.id===order.id ? 'active' : ''}`}
         onClick={()=>setSelectedOrder(order)}
       >
-        자세히보기
-      </button>
-    </div>
-  ))}
+        <h3>{order.customer_name || '이름 없음'}</h3>
+        <p>{order.number || '-'}</p>
+        <p>{order.wedding_date || '-'} {order.wedding_time || ''}</p>
+      </div>
+    ))}
+  </div>
 
-  {selectedOrder ? (
- <div className="panel order-detail">
-  <h2>주문서 상세</h2>
-
-  <p><strong>주문자명</strong><br/>{selectedOrder.customer_name || '-'}</p>
-
-  <p><strong>연락처</strong><br/>{selectedOrder.number || '-'}</p>
-
-  <p><strong>신랑명</strong><br/>
-    {selectedOrder.groom_name || '-'}
-    {selectedOrder.groom_name_en ? ` (${selectedOrder.groom_name_en})` : ''}
-  </p>
-
-  <p><strong>신부명</strong><br/>
-    {selectedOrder.bride_name || '-'}
-    {selectedOrder.bride_name_en ? ` (${selectedOrder.bride_name_en})` : ''}
-  </p>
-
-  <p><strong>예식일시</strong><br/>
-    {selectedOrder.wedding_date || '-'} {selectedOrder.wedding_time || ''}
-  </p>
-
-  <p><strong>식장명</strong><br/>
-    {selectedOrder.wedding_place || '-'}
-  </p>
-
-  <p><strong>식장 주소</strong><br/>
-    {selectedOrder.wedding_addre || '-'}
-  </p>
-
-  <p><strong>식장 연락처</strong><br/>
-    {selectedOrder.wedding_phone || '-'}
-  </p>
-
-  <p><strong>{selectedOrder.route_option || '오시는 길 안내'}</strong><br/>
-    {selectedOrder.route_text || '-'}
-  </p>
-
-  <p><strong>모바일 청첩장 링크</strong><br/>
-    {selectedOrder.mobile_qr_lir || '-'}
-  </p>
-
-  <p><strong>화환 및 ATM 안내</strong><br/>
-    {selectedOrder.flower_notice || '-'}
-  </p>
-
-  <hr/>
-
-  <h3>혼주 정보</h3>
-
-  <p>
-    신랑측 부 :
-    {selectedOrder.groom_father_deceased ? ' 故 ' : ' '}
-    {selectedOrder.groom_father_name || '-'}
-  </p>
-
-  <p>
-    신랑측 모 :
-    {selectedOrder.groom_mother_deceased ? ' 故 ' : ' '}
-    {selectedOrder.groom_mother_name || '-'}
-  </p>
-
-  <p>
-    신부측 부 :
-    {selectedOrder.bride_father_deceased ? ' 故 ' : ' '}
-    {selectedOrder.bride_father_name || '-'}
-  </p>
-
-  <p>
-    신부측 모 :
-    {selectedOrder.bride_mother_deceased ? ' 故 ' : ' '}
-    {selectedOrder.bride_mother_name || '-'}
-  </p>
-
-  <hr/>
-
-  <h3>계좌 정보</h3>
-
-  <p>
-    {selectedOrder.account_1_bank || ''}
-    {' '}
-    {selectedOrder.account_1_name || ''}
-    {' '}
-    {selectedOrder.account_1_number || ''}
-  </p>
-
-  <p>
-    {selectedOrder.account_2_bank || ''}
-    {' '}
-    {selectedOrder.account_2_name || ''}
-    {' '}
-    {selectedOrder.account_2_number || ''}
-  </p>
-
-  <button
-    type="button"
-    className="ghost"
-    onClick={()=>setSelectedOrder(null)}
-  >
-    닫기
-  </button>
+  <div className="orders-detail">
+    {selectedOrder ? (
+      <div>
+        <h2>주문서 상세</h2>
+        <p><strong>주문자명</strong><br/>{selectedOrder.customer_name || '-'}</p>
+        <p><strong>연락처</strong><br/>{selectedOrder.number || '-'}</p>
+        <p><strong>신랑명</strong><br/>{selectedOrder.groom_name || '-'}</p>
+        <p><strong>신부명</strong><br/>{selectedOrder.bride_name || '-'}</p>
+        <p><strong>예식일시</strong><br/>{selectedOrder.wedding_date || '-'} {selectedOrder.wedding_time || ''}</p>
+        <p><strong>식장명</strong><br/>{selectedOrder.wedding_place || '-'}</p>
+      </div>
+    ) : (
+      <p className="muted">주문서를 선택해주세요.</p>
+    )}
+  </div>
 </div>
-  ) : null}
+    
 </section>
   ) : null}
 
