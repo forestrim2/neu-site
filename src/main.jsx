@@ -944,7 +944,7 @@ setForm({
 
       <div className="detail-block">
         <strong>모바일 청첩장 QR 코드 링크</strong>
-        <p>{selectedOrder.mobile_qr_lir || '-'}</p>
+      <p>{selectedOrder.mobile_qr_link || selectedOrder.mobile_qr_lir || '-'}</p>
       </div>
 
       <div className="detail-block">
