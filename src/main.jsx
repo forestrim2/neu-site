@@ -467,15 +467,17 @@ setForm({
           메인에 공개
         </label>
         
-        <label className="check">
-  <input
-    type="checkbox"
-    checked={form.use_order_form}
-    onChange={e=>setForm({...form,use_order_form:e.target.checked})}
-  />
-  사이트 주문서 사용
+       <label>
+  주문서 종류
+  <select
+    value={form.order_form_type}
+    onChange={e=>setForm({...form,order_form_type:e.target.value})}
+  >
+    <option value="none">없음</option>
+    <option value="common">공통 주문서</option>
+    <option value="invitation">청첩장 주문서</option>
+  </select>
 </label>
-        
 
         <label className="check">
           <input
