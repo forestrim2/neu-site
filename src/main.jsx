@@ -169,36 +169,30 @@ function ProductDetail(){
           {product.price?<p className="price">{money(product.price)}</p>:null}
           {product.description?<p className="desc">{product.description}</p>:null}
 
-         <a className="dm-button" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
-  주문 문의(DM)
-</a>
-    {product.order_form_type === 'common' ? (
-  <a
-    className="dm-button"
-    href={`/order?type=common&product=${product.id}`}
-  >
-    문의서 작성
+        <div className="product-actions">
+  <a className="dm-button" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
+    주문 문의(DM)
   </a>
-) : null}
 
-{product.order_form_type === 'invitation' ? (
-  <a
-    className="dm-button"
-    href={`/order?type=invitation&product=${product.id}`}
-  >
-    청첩장 주문서 작성
-  </a>
-) : null}      
+  {product.order_form_type === 'common' ? (
+    <a className="dm-button" href={`/order?type=common&product=${product.id}`}>
+      문의서 작성
+    </a>
+  ) : null}
 
-{product.order_form_url ? (
-  <a
-    className="dm-button"
-    href={product.order_form_url}
-    target="_blank"
-    rel="noreferrer"
-  >
-    주문서 작성하기
-  </a>
+  {product.order_form_type === 'invitation' ? (
+    <a className="dm-button" href={`/order?type=invitation&product=${product.id}`}>
+      청첩장 주문서 작성
+    </a>
+  ) : null}
+
+  {product.order_form_url ? (
+    <a className="dm-button" href={product.order_form_url} target="_blank" rel="noreferrer">
+      주문서 작성하기
+    </a>
+  ) : null}
+</div>
+          
 ) : null}
 
           {product.cover_image?(
