@@ -91,7 +91,10 @@ function Home(){
               </div>
               <div className="card-body">
                 <h2>{item.name}</h2>
-               {item.price_options?.length ? (  <p>{money(item.price_options[0].price)}~</p>) : item.price ? (  <p>{money(item.price)}</p>) : null}
+              {item.price_options?.length ? (  <p>    {money(      Math
+                                                             .min(        ...item.price_options          
+                                                              .map(option=>Number(option.price))         
+                                                              .filter(price=>price>0)      )    )}~  </p>) : item.price ? (  <p>{money(item.price)}</p>) : null}
               </div>
             </a>
           ))}
