@@ -91,7 +91,7 @@ function Home(){
               </div>
               <div className="card-body">
                 <h2>{item.name}</h2>
-                {item.price?<p>{money(item.price)}</p>:null}
+               {item.price_options?.length ? (  <p>{money(item.price_options[0].price)}~</p>) : item.price ? (  <p>{money(item.price)}</p>) : null}
               </div>
             </a>
           ))}
@@ -166,7 +166,15 @@ function ProductDetail(){
         <section className="product-head">
           <p className="eyebrow">@by_NEU</p>
           <h1>{product.name}</h1>
-          {product.price?<p className="price">{money(product.price)}</p>:null}
+         {product.price_options?.length ? (  <div className="price-options-view">   
+           {product.price_options.map((option,index)=>(      <div key={index} className="option-line">
+        <span>{option.name}</span>        <span>{money(option.price)}</span>
+      </div>
+    ))}
+  </div>
+) : product.price ? (
+  <p className="price">{money(product.price)}</p>
+) : null}
           {product.description?<p className="desc">{product.description}</p>:null}
 
         <div className="product-actions">
