@@ -808,7 +808,7 @@ setForm({
         <label>상품설명
           <textarea value={form.description} onChange={e=>setForm({...form,description:e.target.value})} rows="5"/>
         </label>
-        <label>주문서 링크
+        <label>주문서 링크(지금사용안함)
   <input
     value={form.order_form_url || ''}
     onChange={e=>setForm({...form,order_form_url:e.target.value})}
