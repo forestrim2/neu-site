@@ -75,7 +75,7 @@ function Home(){
       <Header/>
       <main className="container">
         <section className="hero">
-          <p className="eyebrow">floral & object</p>
+          <p className="eyebrow">floral & objet</p>
           <h1>새로운 형태와 분위기를 제안합니다.</h1>
           <p>상세 이미지를 확인하신 뒤 주문은 Instagram DM으로 문의해주세요.</p>
         </section>
