@@ -523,6 +523,7 @@ function Login(){
 const emptyForm={
   name:'',
   price:'',
+  price_options:[],
   display_order:999,
   cover_image:'',
   detail_images:[],
@@ -631,6 +632,7 @@ function Dashboard(){
 const payload={
   name:form.name,
   price:form.price,
+  price_options:form.price_options||[],
   display_order:form.display_order,
   cover_image:form.cover_image,
   detail_images:form.detail_images||[],
@@ -662,6 +664,7 @@ const payload={
 setForm({
   name:item.name||'',
   price:item.price||'',
+  price_options:item.price_options||[],
   display_order:item.display_order||999,
   cover_image:item.cover_image||'',
   detail_images:item.detail_images||[],
@@ -734,6 +737,56 @@ setForm({
             inputMode="numeric"
           />
         </label>
+        <div className="price-options">
+  <h3>옵션 가격</h3>
+
+  {(form.price_options||[]).map((option,index)=>(
+    <div className="price-option-row" key={index}>
+      <input
+        value={option.name||''}
+        onChange={e=>{
+          const next=[...(form.price_options||[])];
+          next[index]={...next[index],name:e.target.value};
+          setForm({...form,price_options:next});
+        }}
+        placeholder="옵션명"
+      />
+
+      <input
+        value={formatPriceInput(option.price||'')}
+        onChange={e=>{
+          const next=[...(form.price_options||[])];
+          next[index]={...next[index],price:e.target.value.replace(/[^0-9]/g,'')};
+          setForm({...form,price_options:next});
+        }}
+        placeholder="가격"
+        inputMode="numeric"
+      />
+
+      <button
+        type="button"
+        className="ghost"
+        onClick={()=>{
+          const next=(form.price_options||[]).filter((_,i)=>i!==index);
+          setForm({...form,price_options:next});
+        }}
+      >
+        삭제
+      </button>
+    </div>
+  ))}
+
+  <button
+    type="button"
+    className="ghost"
+    onClick={()=>setForm({
+      ...form,
+      price_options:[...(form.price_options||[]),{name:'',price:''}]
+    })}
+  >
+    옵션 추가
+  </button>
+</div>
 
         <label>노출순서
           <input
