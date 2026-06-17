@@ -76,7 +76,8 @@ function Home(){
       <main className="container">
         <section className="hero">
           <p className="eyebrow">floral & objet</p>
-          <h1>Soft European Romance 
+          <h1>◛ Soft European Romance 
+            
             paper, fabric and floral details 
             for weddings & celebrations</h1>
           <p>상세 이미지를 확인하신 뒤 주문은 Instagram DM으로 문의해주세요.</p>
