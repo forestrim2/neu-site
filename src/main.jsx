@@ -389,16 +389,16 @@ function OrderForm(){
             <div className="order-divider"></div>
 
             <div className="form-grid two">
-              <label>신랑 영문 이름 (작성해 주신 대로 출력)
+              <label>신랑 영문 이름 (작성해 주신 대로 출력, 성 빼고 이름만 출력시 이름만 기재)
                 <input value={welcomeForm.groom_name_en} onChange={e=>updateWelcome('groom_name_en',e.target.value)} required/>
               </label>
-              <label>신부 영문 이름 (작성해 주신 대로 출력)
+              <label>신부 영문 이름 (작성해 주신 대로 출력, 성 빼고 이름만 출력시 이름만 기재)
                 <input value={welcomeForm.bride_name_en} onChange={e=>updateWelcome('bride_name_en',e.target.value)} required/>
               </label>
             </div>
 
             <label>결혼 날짜 (월│일│년도순)
-              <input value={welcomeForm.wedding_date} onChange={e=>updateWelcome('wedding_date',e.target.value)} placeholder="11.07.2026" required/>
+              <input value={welcomeForm.wedding_date} onChange={e=>updateWelcome('wedding_date',e.target.value)} placeholder="07.11.2026" required/>
             </label>
 
             <div className="order-divider"></div>
@@ -424,7 +424,7 @@ function OrderForm(){
               <select value={welcomeForm.letter_case} onChange={e=>updateWelcome('letter_case',e.target.value)} required>
                 <option value="">선택</option>
                 <option value="대문자">대문자</option>
-                <option value="소문자">소문자</option>
+                <option value="소문자(첫 글자만 대문자)">소문자(첫 글자만 대문자)</option>
               </select>
             </label>
 
@@ -433,7 +433,7 @@ function OrderForm(){
                 value={welcomeForm.request_note}
                 onChange={e=>updateWelcome('request_note',e.target.value)}
                 rows="4"
-                placeholder="레이아웃 변경을 희망하실 경우 이곳에 기재해주세요."
+                placeholder="레이아웃 변경(추가금 발생)을 희망하실 경우 이곳에 기재해주세요."
               />
             </label>
 
