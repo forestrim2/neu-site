@@ -254,6 +254,19 @@ function OrderForm(){
     account_2_number:''
   });
 
+  const [welcomeForm, setWelcomeForm] = useState({
+  customer_name: '',
+  phone: '',
+  address: '',
+  groom_name_en: '',
+  bride_name_en: '',
+  wedding_date: '',
+  lace_type: '',
+  font_type: '',
+  letter_case: '',
+  request_note: ''
+});
+  
   useEffect(()=>{
     if(!productId)return;
     supabase
@@ -267,7 +280,11 @@ function OrderForm(){
   function update(key,value){
     setForm(prev=>({...prev,[key]:value}));
   }
-
+  
+function updateWelcome(key,value){
+  setWelcomeForm(prev=>({...prev,[key]:value}));
+}
+  
   async function submit(e){
     e.preventDefault();
     setSaving(true);
@@ -290,17 +307,42 @@ function OrderForm(){
     setDone(true);
   }
 
-  if(type!=='invitation'){
-    return(
-      <>
-        <Header/>
-        <main className="container">
-          <p className="muted">준비 중인 주문서입니다.</p>
-        </main>
-      </>
-    );
+  async function submitWelcome(e){
+  e.preventDefault();
+  setSaving(true);
+  setMessage('');
+
+  const payload={
+    product_id:productId,
+    product_name:product?.name||'',
+    order_type:'welcome_fabric',
+    ...welcomeForm,
+    status:'접수'
+  };
+
+  const{error}=await supabase.from('orders').insert(payload);
+  setSaving(false);
+
+  if(error){
+    setMessage('제출에 실패했습니다. 잠시 후 다시 시도해주세요.');
+    return;
   }
 
+  setDone(true);
+}
+
+
+if(type !== 'invitation' && type !== 'welcome_fabric'){
+  return(
+    <>
+      <Header/>
+      <main className="container">
+        <p className="muted">준비 중인 주문서입니다.</p>
+      </main>
+    </>
+  );
+}
+  
   if(done){
     return(
       <>
@@ -315,6 +357,101 @@ function OrderForm(){
       </>
     );
   }
+
+  <div className="form-grid two">
+  <label>주문자명
+    <input
+      value={welcomeForm.customer_name}
+      onChange={e=>updateWelcome('customer_name',e.target.value)}
+      required
+    />
+  </label>
+
+  <label>연락처
+    <input
+      value={welcomeForm.phone}
+      onChange={e=>updateWelcome('phone',e.target.value)}
+      required
+    />
+  </label>
+</div>
+
+<div className="order-divider"></div>
+
+<div className="form-grid two">
+  <label>신랑 영문 이름 (작성해 주신 대로 출력)
+    <input
+      value={welcomeForm.groom_name_en}
+      onChange={e=>updateWelcome('groom_name_en',e.target.value)}
+      required
+    />
+  </label>
+
+  <label>신부 영문 이름 (작성해 주신 대로 출력)
+    <input
+      value={welcomeForm.bride_name_en}
+      onChange={e=>updateWelcome('bride_name_en',e.target.value)}
+      required
+    />
+  </label>
+</div>
+
+<label>결혼 날짜 (월│일│년도순)
+  <input
+    value={welcomeForm.wedding_date}
+    onChange={e=>updateWelcome('wedding_date',e.target.value)}
+    placeholder="11.07.2026"
+    required
+  />
+</label>
+
+<div className="order-divider"></div>
+
+<label>레이스 (택1)
+  <select
+    value={welcomeForm.lace_type}
+    onChange={e=>updateWelcome('lace_type',e.target.value)}
+    required
+  >
+    <option value="">선택</option>
+    <option value="앤틱">앤틱</option>
+    <option value="플라워">플라워</option>
+  </select>
+</label>
+
+<label>폰트 (택1)
+  <select
+    value={welcomeForm.font_type}
+    onChange={e=>updateWelcome('font_type',e.target.value)}
+    required
+  >
+    <option value="">선택</option>
+    <option value="필기체">필기체</option>
+    <option value="손글씨체">손글씨체</option>
+    <option value="개성체">개성체</option>
+  </select>
+</label>
+
+<label>대소문자 구분 (택1)
+  <select
+    value={welcomeForm.letter_case}
+    onChange={e=>updateWelcome('letter_case',e.target.value)}
+    required
+  >
+    <option value="">선택</option>
+    <option value="대문자">대문자</option>
+    <option value="소문자">소문자</option>
+  </select>
+</label>
+
+<label>추가 요청사항 (선택)
+  <textarea
+    value={welcomeForm.request_note}
+    onChange={e=>updateWelcome('request_note',e.target.value)}
+    rows="4"
+    placeholder="레이아웃 변경을 희망하실 경우 이곳에 기재해주세요."
+  />
+</label>
 
   return(
     <>
@@ -872,6 +1009,7 @@ setForm({
     <option value="none">없음</option>
     <option value="common">공통 주문서</option>
     <option value="invitation">청첩장 주문서</option>
+    <option value="welcome_fabric">웰컴 패브릭 주문서</option>
   </select>
 </label>
 
