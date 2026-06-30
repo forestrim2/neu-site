@@ -1081,7 +1081,7 @@ setForm({
     {orders.length===0?<p className="muted">접수된 주문서가 없습니다.</p>:null}
 
 {orders
-  .filter(order=>order.order_type === 'invitation')
+.filter(order=>order.order_type === 'invitation' || !order.order_type)
   .filter(order=>
     (order.customer_name || '')
       .toLowerCase()
