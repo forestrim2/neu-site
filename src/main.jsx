@@ -406,17 +406,17 @@ function OrderForm(){
             <label>레이스 (택1)
               <select value={welcomeForm.lace_type} onChange={e=>updateWelcome('lace_type',e.target.value)} required>
                 <option value="">선택</option>
-                <option value="앤틱">앤틱</option>
-                <option value="플라워">플라워</option>
+                <option value="1.앤틱">1.앤틱</option>
+                <option value="2.플라워">2.플라워</option>
               </select>
             </label>
 
             <label>폰트 (택1)
               <select value={welcomeForm.font_type} onChange={e=>updateWelcome('font_type',e.target.value)} required>
                 <option value="">선택</option>
-                <option value="필기체">필기체</option>
-                <option value="손글씨체">손글씨체</option>
-                <option value="개성체">개성체</option>
+                <option value="1.필기체">1.필기체</option>
+                <option value="2.손글씨체">2.손글씨체</option>
+                <option value="3.개성체">3.개성체</option>
               </select>
             </label>
 
@@ -424,7 +424,7 @@ function OrderForm(){
               <select value={welcomeForm.letter_case} onChange={e=>updateWelcome('letter_case',e.target.value)} required>
                 <option value="">선택</option>
                 <option value="대문자">대문자</option>
-                <option value="소문자(첫 글자만 대문자)">소문자(첫 글자만 대문자)</option>
+                <option value="소문자 (첫 글자만 대문자)">소문자 (첫 글자만 대문자)</option>
               </select>
             </label>
 
