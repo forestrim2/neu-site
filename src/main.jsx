@@ -361,7 +361,7 @@ function OrderForm(){
   if(type === 'welcome_fabric'){
     return(
       <>
-        <Header/>
+        <Header/> 
         <main className="order-container">
           <form className="panel form order-form" onSubmit={submitWelcome}>
             <p className="eyebrow">NEU welcome fabric order</p>
