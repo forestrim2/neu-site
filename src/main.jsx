@@ -834,7 +834,13 @@ setForm({
   <header className="admin-top">
   <div>
     <p className="eyebrow">NEU admin</p>
-    <h1>{activeTab === 'products' ? '상품 관리' : '청첩장 상세'}</h1>
+   <h1>
+  {activeTab === 'products'
+    ? '상품 관리'
+    : activeTab === 'orders'
+    ? '청첩장 상세'
+    : '웰컴 패브릭 상세'}
+</h1>
   </div>
   <button className="ghost" onClick={signOut}><LogOut size={16}/> 로그아웃</button>
 </header>
@@ -855,6 +861,9 @@ setForm({
   >
     청첩장 상세
   </button>
+  >
+  웰컴 패브릭 상세
+</button>
 </div>
 
       {activeTab === 'products' ? (
@@ -1066,7 +1075,8 @@ setForm({
   <div className="orders-list">
     {orders.length===0?<p className="muted">접수된 주문서가 없습니다.</p>:null}
 
-    {orders
+{orders
+  .filter(order=>order.order_type === 'invitation')
   .filter(order=>
     (order.customer_name || '')
       .toLowerCase()
@@ -1301,6 +1311,107 @@ setForm({
     
 </section>
   ) : null}
+
+  {activeTab === 'welcome' ? (
+  <section className="panel list">
+    <h2>웰컴 패브릭 상세</h2>
+
+    <input
+      className="order-search"
+      placeholder="주문자명 검색"
+      value={orderSearch}
+      onChange={e=>setOrderSearch(e.target.value)}
+    />
+
+    <div className="orders-layout">
+      <div className="orders-list">
+        {orders.filter(order=>order.order_type === 'welcome_fabric').length===0 ? (
+          <p className="muted">접수된 주문서가 없습니다.</p>
+        ) : null}
+
+        {orders
+          .filter(order=>order.order_type === 'welcome_fabric')
+          .filter(order=>
+            (order.customer_name || '')
+              .toLowerCase()
+              .includes(orderSearch.toLowerCase())
+          )
+          .map(order=>(
+            <div
+              key={order.id}
+              className={`order-card ${selectedOrder?.id===order.id ? 'active' : ''}`}
+              onClick={()=>setSelectedOrder(order)}
+            >
+              <h3>{order.customer_name || '이름 없음'}</h3>
+              <p>{order.phone || '-'}</p>
+              <p>{order.wedding_date || '-'}</p>
+            </div>
+          ))}
+      </div>
+
+      <div className="orders-detail">
+        {selectedOrder ? (
+          <div className="order-detail-view">
+            <h2>웰컴 패브릭 상세</h2>
+
+            <div className="detail-grid two">
+              <div>
+                <strong>주문자명</strong>
+                <p>{selectedOrder.customer_name || '-'}</p>
+              </div>
+              <div>
+                <strong>연락처</strong>
+                <p>{selectedOrder.phone || '-'}</p>
+              </div>
+            </div>
+
+            <div className="order-divider"></div>
+
+            <div className="detail-grid two">
+              <div>
+                <strong>신랑 영문 이름</strong>
+                <p>{selectedOrder.groom_name_en || '-'}</p>
+              </div>
+              <div>
+                <strong>신부 영문 이름</strong>
+                <p>{selectedOrder.bride_name_en || '-'}</p>
+              </div>
+            </div>
+
+            <div className="detail-block">
+              <strong>결혼 날짜 (월│일│년도순)</strong>
+              <p>{selectedOrder.wedding_date || '-'}</p>
+            </div>
+
+            <div className="order-divider"></div>
+
+            <div className="detail-grid three">
+              <div>
+                <strong>레이스 (택1)</strong>
+                <p>{selectedOrder.lace_type || '-'}</p>
+              </div>
+              <div>
+                <strong>폰트 (택1)</strong>
+                <p>{selectedOrder.font_type || '-'}</p>
+              </div>
+              <div>
+                <strong>대소문자 구분 (택1)</strong>
+                <p>{selectedOrder.letter_case || '-'}</p>
+              </div>
+            </div>
+
+            <div className="detail-block">
+              <strong>추가 요청사항 (선택)</strong>
+              <p>{selectedOrder.request_note || '-'}</p>
+            </div>
+          </div>
+        ) : (
+          <p className="muted">주문서를 선택해주세요.</p>
+        )}
+      </div>
+    </div>
+  </section>
+) : null}
 
     </main>
   );
