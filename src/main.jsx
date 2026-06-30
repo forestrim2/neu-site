@@ -196,7 +196,13 @@ function ProductDetail(){
       청첩장 주문서 작성
     </a>
   ) : null}
-
+          
+{product.order_form_type === 'welcome_fabric' ? (
+  <a className="dm-button" href={`/order?type=welcome_fabric&product=${product.id}`}>
+    웰컴 패브릭 주문서 작성
+  </a>
+) : null}
+          
   {product.order_form_url ? (
     <a className="dm-button" href={product.order_form_url} target="_blank" rel="noreferrer">
       주문서 작성하기
