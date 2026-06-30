@@ -1087,10 +1087,14 @@ setForm({
       >
         <h3>{order.customer_name || '이름 없음'}</h3>
         <p>{order.phone || '-'}</p>
-        <p>
-  {order.wedding_date || '-'}
-  {' '}
-  {order.wedding_time_period || order.wedding_time || ''}
+      <p>
+  {order.order_type === 'welcome_fabric'
+    ? '웰컴 패브릭'
+    : '청첩장'}
+</p>
+
+<p>
+  {order.customer_name || '-'}
 </p>
       </div>
     ))}
@@ -1101,6 +1105,61 @@ setForm({
     <div className="order-detail-view">
       <h2>주문서 상세</h2>
 
+      {selectedOrder.order_type === 'welcome_fabric' ? (
+  <>
+    <div className="detail-grid two">
+      <div>
+        <strong>주문자명</strong>
+        <p>{selectedOrder.customer_name || '-'}</p>
+      </div>
+      <div>
+        <strong>연락처</strong>
+        <p>{selectedOrder.phone || '-'}</p>
+      </div>
+    </div>
+
+    <div className="order-divider"></div>
+
+    <div className="detail-grid two">
+      <div>
+        <strong>신랑 영문 이름</strong>
+        <p>{selectedOrder.groom_name_en || '-'}</p>
+      </div>
+      <div>
+        <strong>신부 영문 이름</strong>
+        <p>{selectedOrder.bride_name_en || '-'}</p>
+      </div>
+    </div>
+
+    <div className="detail-block">
+      <strong>결혼 날짜</strong>
+      <p>{selectedOrder.wedding_date || '-'}</p>
+    </div>
+
+    <div className="order-divider"></div>
+
+    <div className="detail-grid three">
+      <div>
+        <strong>레이스</strong>
+        <p>{selectedOrder.lace_type || '-'}</p>
+      </div>
+      <div>
+        <strong>폰트</strong>
+        <p>{selectedOrder.font_type || '-'}</p>
+      </div>
+      <div>
+        <strong>대소문자 구분</strong>
+        <p>{selectedOrder.letter_case || '-'}</p>
+      </div>
+    </div>
+
+    <div className="detail-block">
+      <strong>추가 요청사항</strong>
+      <p>{selectedOrder.request_note || '-'}</p>
+    </div>
+  </>
+) : (
+      
       <div className="detail-grid two">
         <div>
           <strong>주문자명</strong>
@@ -1237,6 +1296,8 @@ setForm({
           <p>{selectedOrder.account_2_number || '-'}</p>
         </div>
       </div>
+          </>
+)}
     </div>
   ) : (
     <p className="muted">주문서를 선택해주세요.</p>
