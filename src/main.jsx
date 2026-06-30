@@ -359,100 +359,91 @@ if(type !== 'invitation' && type !== 'welcome_fabric'){
     );
   }
 
-  <div className="form-grid two">
-  <label>주문자명
-    <input
-      value={welcomeForm.customer_name}
-      onChange={e=>updateWelcome('customer_name',e.target.value)}
-      required
-    />
-  </label>
+   if(type === 'welcome_fabric'){
+    return(
+      <>
+        <Header/>
+        <main className="order-container">
+          <form className="panel form order-form" onSubmit={submitWelcome}>
+            <p className="eyebrow">NEU welcome fabric order</p>
+            <h1>웰컴 패브릭 주문서</h1>
 
-  <label>연락처
-    <input
-      value={welcomeForm.phone}
-      onChange={e=>updateWelcome('phone',e.target.value)}
-      required
-    />
-  </label>
-</div>
+            <p className="order-guide">
+              ■ 하단의 항목을 빠짐 없이 기재해주세요.
+            </p>
 
-<div className="order-divider"></div>
+            <div className="form-grid two">
+              <label>주문자명
+                <input value={welcomeForm.customer_name} onChange={e=>updateWelcome('customer_name',e.target.value)} required/>
+              </label>
 
-<div className="form-grid two">
-  <label>신랑 영문 이름 (작성해 주신 대로 출력)
-    <input
-      value={welcomeForm.groom_name_en}
-      onChange={e=>updateWelcome('groom_name_en',e.target.value)}
-      required
-    />
-  </label>
+              <label>연락처
+                <input value={welcomeForm.phone} onChange={e=>updateWelcome('phone',e.target.value)} required/>
+              </label>
+            </div>
 
-  <label>신부 영문 이름 (작성해 주신 대로 출력)
-    <input
-      value={welcomeForm.bride_name_en}
-      onChange={e=>updateWelcome('bride_name_en',e.target.value)}
-      required
-    />
-  </label>
-</div>
+            <div className="order-divider"></div>
 
-<label>결혼 날짜 (월│일│년도순)
-  <input
-    value={welcomeForm.wedding_date}
-    onChange={e=>updateWelcome('wedding_date',e.target.value)}
-    placeholder="11.07.2026"
-    required
-  />
-</label>
+            <div className="form-grid two">
+              <label>신랑 영문 이름 (작성해 주신 대로 출력)
+                <input value={welcomeForm.groom_name_en} onChange={e=>updateWelcome('groom_name_en',e.target.value)} required/>
+              </label>
 
-<div className="order-divider"></div>
+              <label>신부 영문 이름 (작성해 주신 대로 출력)
+                <input value={welcomeForm.bride_name_en} onChange={e=>updateWelcome('bride_name_en',e.target.value)} required/>
+              </label>
+            </div>
 
-<label>레이스 (택1)
-  <select
-    value={welcomeForm.lace_type}
-    onChange={e=>updateWelcome('lace_type',e.target.value)}
-    required
-  >
-    <option value="">선택</option>
-    <option value="앤틱">앤틱</option>
-    <option value="플라워">플라워</option>
-  </select>
-</label>
+            <label>결혼 날짜 (월│일│년도순)
+              <input value={welcomeForm.wedding_date} onChange={e=>updateWelcome('wedding_date',e.target.value)} placeholder="11.07.2026" required/>
+            </label>
 
-<label>폰트 (택1)
-  <select
-    value={welcomeForm.font_type}
-    onChange={e=>updateWelcome('font_type',e.target.value)}
-    required
-  >
-    <option value="">선택</option>
-    <option value="필기체">필기체</option>
-    <option value="손글씨체">손글씨체</option>
-    <option value="개성체">개성체</option>
-  </select>
-</label>
+            <div className="order-divider"></div>
 
-<label>대소문자 구분 (택1)
-  <select
-    value={welcomeForm.letter_case}
-    onChange={e=>updateWelcome('letter_case',e.target.value)}
-    required
-  >
-    <option value="">선택</option>
-    <option value="대문자">대문자</option>
-    <option value="소문자">소문자</option>
-  </select>
-</label>
+            <label>레이스 (택1)
+              <select value={welcomeForm.lace_type} onChange={e=>updateWelcome('lace_type',e.target.value)} required>
+                <option value="">선택</option>
+                <option value="앤틱">앤틱</option>
+                <option value="플라워">플라워</option>
+              </select>
+            </label>
 
-<label>추가 요청사항 (선택)
-  <textarea
-    value={welcomeForm.request_note}
-    onChange={e=>updateWelcome('request_note',e.target.value)}
-    rows="4"
-    placeholder="레이아웃 변경을 희망하실 경우 이곳에 기재해주세요."
-  />
-</label>
+            <label>폰트 (택1)
+              <select value={welcomeForm.font_type} onChange={e=>updateWelcome('font_type',e.target.value)} required>
+                <option value="">선택</option>
+                <option value="필기체">필기체</option>
+                <option value="손글씨체">손글씨체</option>
+                <option value="개성체">개성체</option>
+              </select>
+            </label>
+
+            <label>대소문자 구분 (택1)
+              <select value={welcomeForm.letter_case} onChange={e=>updateWelcome('letter_case',e.target.value)} required>
+                <option value="">선택</option>
+                <option value="대문자">대문자</option>
+                <option value="소문자">소문자</option>
+              </select>
+            </label>
+
+            <label>추가 요청사항 (선택)
+              <textarea
+                value={welcomeForm.request_note}
+                onChange={e=>updateWelcome('request_note',e.target.value)}
+                rows="4"
+                placeholder="레이아웃 변경을 희망하실 경우 이곳에 기재해주세요."
+              />
+            </label>
+
+            <button className="primary" disabled={saving}>
+              {saving?'제출 중':'제출하기'}
+            </button>
+
+            {message?<p className="error">{message}</p>:null}
+          </form>
+        </main>
+      </>
+    );
+  }
 
   return(
     <>
