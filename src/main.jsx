@@ -313,13 +313,13 @@ function updateWelcome(key,value){
   setSaving(true);
   setMessage('');
 
-  const payload={
-    product_id:productId,
-    product_name:product?.name||'',
-    order_type:'welcome_fabric',
-    ...welcomeForm,
-    status:'접수'
-  };
+const payload={
+  product_id:productId,
+  product_name:product?.name||'',
+  order_type:'invitation',
+  ...form,
+  status:'접수'
+};
 
   const{error}=await supabase.from('orders').insert(payload);
   setSaving(false);
@@ -1151,7 +1151,7 @@ setForm({
     </div>
   </>
 ) : (
-      
+      <>
       <div className="detail-grid two">
         <div>
           <strong>주문자명</strong>
