@@ -1093,16 +1093,12 @@ setForm({
         className={`order-card ${selectedOrder?.id===order.id ? 'active' : ''}`}
         onClick={()=>setSelectedOrder(order)}
       >
-        <h3>{order.customer_name || '이름 없음'}</h3>
-        <p>{order.phone || '-'}</p>
-      <p>
-  {order.order_type === 'welcome_fabric'
-    ? '웰컴 패브릭'
-    : '청첩장'}
-</p>
-
+<h3>{order.customer_name || '이름 없음'}</h3>
+<p>{order.phone || '-'}</p>
 <p>
-  {order.customer_name || '-'}
+  {order.wedding_date || '-'}
+  {' '}
+  {order.wedding_time_period || order.wedding_time || ''}
 </p>
       </div>
     ))}
