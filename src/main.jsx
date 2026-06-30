@@ -854,14 +854,19 @@ setForm({
     상품 관리
   </button>
 
-  <button
-    type="button"
-    className={activeTab === 'orders' ? 'active' : ''}
-    onClick={()=>setActiveTab('orders')}
-  >
-    청첩장 상세
-  </button>
-  >
+ <button
+  type="button"
+  className={activeTab === 'orders' ? 'active' : ''}
+  onClick={()=>setActiveTab('orders')}
+>
+  청첩장 상세
+</button>
+
+<button
+  type="button"
+  className={activeTab === 'welcome' ? 'active' : ''}
+  onClick={()=>setActiveTab('welcome')}
+>
   웰컴 패브릭 상세
 </button>
 </div>
