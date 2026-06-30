@@ -254,19 +254,18 @@ function OrderForm(){
     account_2_number:''
   });
 
-  const [welcomeForm, setWelcomeForm] = useState({
-  customer_name: '',
-  phone: '',
-  address: '',
-  groom_name_en: '',
-  bride_name_en: '',
-  wedding_date: '',
-  lace_type: '',
-  font_type: '',
-  letter_case: '',
-  request_note: ''
-});
-  
+  const[welcomeForm,setWelcomeForm]=useState({
+    customer_name:'',
+    phone:'',
+    groom_name_en:'',
+    bride_name_en:'',
+    wedding_date:'',
+    lace_type:'',
+    font_type:'',
+    letter_case:'',
+    request_note:''
+  });
+
   useEffect(()=>{
     if(!productId)return;
     supabase
@@ -280,70 +279,70 @@ function OrderForm(){
   function update(key,value){
     setForm(prev=>({...prev,[key]:value}));
   }
-  
-function updateWelcome(key,value){
-  setWelcomeForm(prev=>({...prev,[key]:value}));
-}
-  
+
+  function updateWelcome(key,value){
+    setWelcomeForm(prev=>({...prev,[key]:value}));
+  }
+
   async function submit(e){
     e.preventDefault();
     setSaving(true);
     setMessage('');
 
     const payload={
-  product_id:productId,
-  product_name:product?.name||'',
-  order_type:'welcome_fabric',
-  ...welcomeForm,
-  status:'접수'
-};
+      product_id:productId,
+      product_name:product?.name||'',
+      order_type:'invitation',
+      ...form,
+      status:'접수'
+    };
 
     const{error}=await supabase.from('orders').insert(payload);
     setSaving(false);
 
-   if(error){
-  setMessage('제출에 실패했습니다. 잠시 후 다시 시도해주세요.');
-  return;
-}
+    if(error){
+      setMessage('제출에 실패했습니다. 잠시 후 다시 시도해주세요.');
+      return;
+    }
+
     setDone(true);
   }
 
   async function submitWelcome(e){
-  e.preventDefault();
-  setSaving(true);
-  setMessage('');
+    e.preventDefault();
+    setSaving(true);
+    setMessage('');
 
-const payload={
-  product_id:productId,
-  product_name:product?.name||'',
-  order_type:'invitation',
-  ...form,
-  status:'접수'
-};
+    const payload={
+      product_id:productId,
+      product_name:product?.name||'',
+      order_type:'welcome_fabric',
+      ...welcomeForm,
+      status:'접수'
+    };
 
-  const{error}=await supabase.from('orders').insert(payload);
-  setSaving(false);
+    const{error}=await supabase.from('orders').insert(payload);
+    setSaving(false);
 
-  if(error){
-    setMessage('제출에 실패했습니다. 잠시 후 다시 시도해주세요.');
-    return;
+    if(error){
+      setMessage('제출에 실패했습니다. 잠시 후 다시 시도해주세요.');
+      return;
+    }
+
+    setDone(true);
   }
 
-  setDone(true);
-}
+  if(type !== 'invitation' && type !== 'welcome_fabric'){
+    return(
+      <>
+        <Header/>
+        <main className="container">
+          <p className="muted">준비 중인 주문서입니다.</p>
+        </main>
+      </>
+    );
+  }
 
-
-if(type !== 'invitation' && type !== 'welcome_fabric'){
-  return(
-    <>
-      <Header/>
-      <main className="container">
-        <p className="muted">준비 중인 주문서입니다.</p>
-      </main>
-    </>
-  );
-}
-  
   if(done){
     return(
       <>
@@ -359,7 +358,7 @@ if(type !== 'invitation' && type !== 'welcome_fabric'){
     );
   }
 
-   if(type === 'welcome_fabric'){
+  if(type === 'welcome_fabric'){
     return(
       <>
         <Header/>
@@ -376,7 +375,6 @@ if(type !== 'invitation' && type !== 'welcome_fabric'){
               <label>주문자명
                 <input value={welcomeForm.customer_name} onChange={e=>updateWelcome('customer_name',e.target.value)} required/>
               </label>
-
               <label>연락처
                 <input value={welcomeForm.phone} onChange={e=>updateWelcome('phone',e.target.value)} required/>
               </label>
@@ -388,7 +386,6 @@ if(type !== 'invitation' && type !== 'welcome_fabric'){
               <label>신랑 영문 이름 (작성해 주신 대로 출력)
                 <input value={welcomeForm.groom_name_en} onChange={e=>updateWelcome('groom_name_en',e.target.value)} required/>
               </label>
-
               <label>신부 영문 이름 (작성해 주신 대로 출력)
                 <input value={welcomeForm.bride_name_en} onChange={e=>updateWelcome('bride_name_en',e.target.value)} required/>
               </label>
@@ -466,7 +463,7 @@ if(type !== 'invitation' && type !== 'welcome_fabric'){
             </label>
           </div>
 
-         <div className="order-divider"></div>
+          <div className="order-divider"></div>
 
           <div className="form-grid two">
             <label>신랑 한글명
@@ -576,9 +573,8 @@ if(type !== 'invitation' && type !== 'welcome_fabric'){
                 <input value={form.bride_mother_name} onChange={e=>update('bride_mother_name',e.target.value)} />
               </label>
             </div>
+          </div>
 
-                    </div>
-          
           <h2>(선택)계좌 정보 (최대 2개)</h2>
 
           <div className="form-grid three">
@@ -615,8 +611,7 @@ if(type !== 'invitation' && type !== 'welcome_fabric'){
     </>
   );
 }
-
-function Admin(){
+  function Admin(){
   const[session,setSession]=useState(null);
   const[loading,setLoading]=useState(true);
 
