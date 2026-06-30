@@ -389,10 +389,10 @@ function OrderForm(){
             <div className="order-divider"></div>
 
             <div className="form-grid two">
-              <label>신랑 영문 이름 (작성해 주신 대로 출력, 성 빼고 이름만 출력시 이름만 기재)
+              <label>신랑 영문 이름 (작성해 주신 대로 출력)
                 <input value={welcomeForm.groom_name_en} onChange={e=>updateWelcome('groom_name_en',e.target.value)} required/>
               </label>
-              <label>신부 영문 이름 (작성해 주신 대로 출력, 성 빼고 이름만 출력시 이름만 기재)
+              <label>신부 영문 이름 (작성해 주신 대로 출력)
                 <input value={welcomeForm.bride_name_en} onChange={e=>updateWelcome('bride_name_en',e.target.value)} required/>
               </label>
             </div>
