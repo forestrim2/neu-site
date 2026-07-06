@@ -406,7 +406,7 @@ function OrderForm(){
             <label>레이스 (택1)
               <select value={welcomeForm.lace_type} onChange={e=>updateWelcome('lace_type',e.target.value)} required>
                 <option value="">선택</option>
-                <option value="1.앤틱">1.앤틱</option>
+                <option value="1.앤틱(품절)">1.앤틱(품절)</option>
                 <option value="2.플라워">2.플라워</option>
               </select>
             </label>
